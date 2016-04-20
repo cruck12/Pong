@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Sahil on 4/20/2016.
@@ -13,6 +15,7 @@ public class Board extends JPanel implements ActionListener {
 
     private boolean inGame = true;
     private int lives[];
+    private int collision=-1;
 
     private Timer timer;
     private Ball ball;
@@ -24,6 +27,7 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         ImageIcon imgBack = new ImageIcon("Board.jpg");
         background = imgBack.getImage();
+        addKeyListener(new TAdapter());
         initGame();
     }
 
@@ -82,6 +86,10 @@ public class Board extends JPanel implements ActionListener {
     }
     private void move(){
         ball.setPosition(ball.x+ball.dx, ball.y+ball.dy);
+        for (int i=0; i <4; i++){
+            bats[i].setPosition(bats[i].x+bats[i].dx, bats[i].y + bats[i].dy);
+//            bats[i].resetVelocity();
+        }
     }
     private void checkCollision(){
         //collision with the walls
@@ -93,6 +101,7 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dx=-ball.dx;
             }
+            collision=-1;
         }
         else if(ball.x >=385 ){
             if(ball.y<350 && ball.y>50){
@@ -102,6 +111,7 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dx=-ball.dx;
             }
+            collision=-1;
         }
         else if(ball.y >=385 ){
             if(ball.x<350 && ball.x>50){
@@ -111,6 +121,7 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dy=-ball.dy;
             }
+            collision=-1;
         }
         else if(ball.y <=0 ){
             if(ball.x<350 && ball.x>50){
@@ -120,33 +131,53 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dy=-ball.dy;
             }
+            collision=-1;
         }
-        /* Collision with the Bat
+        // Collision with the Bat
         for (int i=0; i<4; i++){
+            if(collision==i){
+                continue;
+            }
             switch (i){
-                case 0: if((ball.x+5)>bats[0].x && (ball.x+5)<bats[0].x+75 && ball.y+10 > bats[0].y && ball.y+10 < bats[0].y+10){
-                        ball.dy=-ball.dy-bats[0].dy;
-                        ball.dx+=bats[0].dx;
-                    }
-                    break;
-                case 1: if((ball.x+5)>bats[1].x && (ball.x+5)<bats[1].x+10 && ball.y+5 > bats[1].y && ball.y+5 < bats[1].y+75){
-                    ball.dx=-ball.dx-bats[1].dx;
-                    ball.dy+=bats[1].dy;
+                case 0: if(bats[0].bounds.contains(ball.x+5,ball.y+10)){
+                    ball.dy=-ball.dy-bats[0].dy/5;
+                    ball.dx+=bats[0].dx/5;
+                    collision=0;
                 }
                     break;
-                case 2: if((ball.x+5)>bats[2].x && (ball.x+5)<bats[2].x+75 && ball.y > bats[2].y && ball.y < bats[2].y+10){
-                    ball.dy=-ball.dy-bats[2].dy;
-                    ball.dx+=bats[2].dx;
+                case 1: if(bats[1].bounds.contains(ball.x+10,ball.y+5)){
+                    ball.dx=-ball.dx-bats[1].dx/5;
+                    ball.dy+=bats[1].dy/5;
+                    collision=1;
                 }
                     break;
-                case 3: if((ball.x)>bats[3].x && (ball.x)<bats[3].x+75 && ball.y+5 > bats[3].y && ball.y+5 < bats[3].y+75){
-                    ball.dy=-ball.dy-bats[3].dy;
-                    ball.dx+=bats[3].dx;
+                case 2: if(bats[2].bounds.contains(ball.x+5,ball.y)){
+                    ball.dy=-ball.dy-bats[2].dy/5;
+                    ball.dx+=bats[2].dx/5;
+                    collision=2;
+                }
+                    break;
+                case 3: if(bats[3].bounds.contains(ball.x,ball.y+5)){
+                    ball.dx=-ball.dx-bats[3].dx/5;
+                    ball.dy+=bats[3].dy/5;
+                    collision=3;
                 }
                     break;
             }
         }
-        */
+
+    }
+    private class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            bats[0].keyReleased(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            bats[0].keyPressed(e);
+        }
     }
 
     @Override
