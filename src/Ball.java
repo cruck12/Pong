@@ -10,20 +10,27 @@ public class Ball {
     int dy =0;
     int x;
     int y;
+    Rectangle bounds;
     Image image;
     public Ball(){
         ImageIcon imgBall = new ImageIcon("ball.png");
         image = imgBall.getImage();
+        bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
     }
 
     public void setPosition(int x, int y){
         this.x=x;
         this.y=y;
+        bounds.setLocation(x,y);
     }
 
     public void setVelocity(){
         Random rand = new Random();
         dx = rand.nextInt()%6;
         dy = rand.nextInt()%6+1;
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
     }
 }

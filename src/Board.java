@@ -22,6 +22,8 @@ public class Board extends JPanel implements ActionListener {
     private Image background;
     private Bat[] bats;
 
+    private int player=0;
+
     public Board(){
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
@@ -139,26 +141,26 @@ public class Board extends JPanel implements ActionListener {
                 continue;
             }
             switch (i){
-                case 0: if(bats[0].bounds.contains(ball.x+5,ball.y+10)){
-                    ball.dy=-ball.dy-bats[0].dy/5;
+                case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
+                    ball.dy=-ball.dy+bats[0].dy/5;
                     ball.dx+=bats[0].dx/5;
                     collision=0;
                 }
                     break;
-                case 1: if(bats[1].bounds.contains(ball.x+10,ball.y+5)){
-                    ball.dx=-ball.dx-bats[1].dx/5;
+                case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
+                    ball.dx=-ball.dx+bats[1].dx/5;
                     ball.dy+=bats[1].dy/5;
                     collision=1;
                 }
                     break;
-                case 2: if(bats[2].bounds.contains(ball.x+5,ball.y)){
-                    ball.dy=-ball.dy-bats[2].dy/5;
+                case 2: if(bats[2].getBounds().intersects(ball.getBounds())){
+                    ball.dy=-ball.dy+bats[2].dy/5;
                     ball.dx+=bats[2].dx/5;
                     collision=2;
                 }
                     break;
-                case 3: if(bats[3].bounds.contains(ball.x,ball.y+5)){
-                    ball.dx=-ball.dx-bats[3].dx/5;
+                case 3: if(bats[3].getBounds().intersects(ball.getBounds())){
+                    ball.dx=-ball.dx+bats[3].dx/5;
                     ball.dy+=bats[3].dy/5;
                     collision=3;
                 }
@@ -171,12 +173,12 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            bats[0].keyReleased(e);
+            bats[player].keyReleased(e);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            bats[0].keyPressed(e);
+            bats[player].keyPressed(e);
         }
     }
 

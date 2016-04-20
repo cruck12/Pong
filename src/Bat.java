@@ -46,6 +46,10 @@ public class Bat {
         dy=0;
     }
 
+    public Rectangle getBounds(){
+        return bounds;
+    }
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
