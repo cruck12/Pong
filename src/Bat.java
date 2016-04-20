@@ -9,6 +9,8 @@ public class Bat {
     int dy =0;
     int x;
     int y;
+    // bat is 75 px wide, 10 px tall
+    //could also possibly make sprite/ implement with rectange: sprite seems better
     Image image;
     boolean horizontal=true;
     public Bat(){
