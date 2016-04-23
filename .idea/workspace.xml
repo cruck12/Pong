@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6da6633-b895-4130-b4a4-cb4e445e2c57" name="Default" comment="" />
+    <list default="true" id="b6da6633-b895-4130-b4a4-cb4e445e2c57" name="Default" comment="Added Player bat movement">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Ball.class" afterPath="$PROJECT_DIR$/out/production/Pong/Ball.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Bat.class" afterPath="$PROJECT_DIR$/out/production/Pong/Bat.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Board.class" afterPath="$PROJECT_DIR$/out/production/Pong/Board.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Game.class" afterPath="$PROJECT_DIR$/out/production/Pong/Game.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ball.java" afterPath="$PROJECT_DIR$/src/Ball.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Board.java" afterPath="$PROJECT_DIR$/src/Board.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.form" afterPath="$PROJECT_DIR$/src/Game.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
+    </list>
     <ignored path="Pong.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,17 +37,30 @@
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
+              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#486#995#0" expanded="true" />
+                <element signature="e#994#995#0" expanded="true" />
+                <element signature="e#1035#1192#0" expanded="true" />
+                <element signature="e#1191#1192#0" expanded="true" />
+              </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Game.form" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Ball.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
+            <state relative-caret-position="91">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,12 +71,10 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-27">
-              <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+            <state relative-caret-position="153">
+              <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2263#2264#0" expanded="true" />
-                <element signature="e#2327#2328#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -62,11 +83,9 @@
       <file leaf-file-name="Bat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,6 +99,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -89,10 +111,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Pong.java" />
-        <option value="$PROJECT_DIR$/src/Game.java" />
-        <option value="$PROJECT_DIR$/src/Game.form" />
-        <option value="$PROJECT_DIR$/src/Ball.java" />
         <option value="$PROJECT_DIR$/src/Bat.java" />
+        <option value="$PROJECT_DIR$/src/Game.form" />
+        <option value="$PROJECT_DIR$/src/Game.java" />
+        <option value="$PROJECT_DIR$/src/Ball.java" />
         <option value="$PROJECT_DIR$/src/Board.java" />
       </list>
     </option>
@@ -108,7 +130,7 @@
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -133,9 +155,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -188,6 +209,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -635,12 +657,56 @@
       <updated>1460828860523</updated>
       <workItem from="1460828865249" duration="179000" />
       <workItem from="1460869364515" duration="1759000" />
-      <workItem from="1461125916734" duration="6181000" />
+      <workItem from="1461125916734" duration="17042000" />
+      <workItem from="1461335830726" duration="6834000" />
     </task>
+    <task id="LOCAL-00001" summary="Added Basic collision detection">
+      <created>1461135911001</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1461135911001</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Basic collision detection">
+      <created>1461135999636</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1461135999636</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added Basic collision detection">
+      <created>1461138276416</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1461138276416</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Player bat movement">
+      <created>1461144274197</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1461144274197</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Optimized Collision detection algorithm">
+      <created>1461163586105</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1461163586105</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Optimized Collision Detection and Handling">
+      <created>1461382005747</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1461382005747</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8119000" />
+    <option name="totallyTimeSpent" value="25814000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -684,6 +750,13 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Basic collision detection" />
+    <MESSAGE value="Added Player bat movement" />
+    <MESSAGE value="Optimized Collision detection algorithm" />
+    <MESSAGE value="Optimized Collision Detection and Handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimized Collision Detection and Handling" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -695,74 +768,82 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pong.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pong.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ball.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#486#995#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1035#1192#0" expanded="true" />
+            <element signature="e#1191#1192#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#995#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1035#1192#0" expanded="true" />
+            <element signature="e#1191#1192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pong.java" />
+    <entry file="file://$PROJECT_DIR$/src/Game.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pong.java" />
+    <entry file="file://$PROJECT_DIR$/src/Bat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#995#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1035#1192#0" expanded="true" />
+            <element signature="e#1191#1192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+        <state relative-caret-position="153">
+          <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2263#2264#0" expanded="true" />
-            <element signature="e#2327#2328#0" expanded="true" />
           </folding>
         </state>
       </provider>

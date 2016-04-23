@@ -26,8 +26,8 @@ public class Ball {
 
     public void setVelocity(){
         Random rand = new Random();
-        dx = rand.nextInt()%6;
-        dy = rand.nextInt()%6+1;
+        dx = rand.nextInt()%7 ;
+        dy = rand.nextInt()%6+ 1 ;
     }
 
     public Rectangle getBounds(){
