@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Sahil on 4/20/2016.
@@ -90,7 +91,6 @@ public class Board extends JPanel implements ActionListener {
         ball.setPosition(ball.x+ball.dx, ball.y+ball.dy);
         for (int i=0; i <4; i++){
             bats[i].setPosition(bats[i].x+bats[i].dx, bats[i].y + bats[i].dy);
-//            bats[i].resetVelocity();
         }
     }
     private void checkCollision(){
@@ -103,9 +103,10 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dx=-ball.dx;
             }
+            ball.x=0;
             collision=-1;
         }
-        else if(ball.x >=385 ){
+        else if(ball.x >=380){
             if(ball.y<350 && ball.y>50){
                 lives[1]--;
                 ball.dx=-ball.dx;
@@ -113,9 +114,10 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dx=-ball.dx;
             }
+            ball.x=380;
             collision=-1;
         }
-        else if(ball.y >=385 ){
+        else if(ball.y >=380 ){
             if(ball.x<350 && ball.x>50){
                 lives[0]--;
                 ball.dy=-ball.dy;
@@ -123,6 +125,7 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dy=-ball.dy;
             }
+            ball.y=380;
             collision=-1;
         }
         else if(ball.y <=0 ){
@@ -133,6 +136,7 @@ public class Board extends JPanel implements ActionListener {
             else{
                 ball.dy=-ball.dy;
             }
+            ball.y=0;
             collision=-1;
         }
         // Collision with the Bat
@@ -142,27 +146,55 @@ public class Board extends JPanel implements ActionListener {
             }
             switch (i){
                 case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
-                    ball.dy=-ball.dy+bats[0].dy/5;
-                    ball.dx+=bats[0].dx/5;
                     collision=0;
+                    Rectangle2D intersection= bats[0].getBounds().createIntersection(ball.getBounds());
+                    if(intersection.getWidth()>intersection.getHeight()){
+                        ball.dy=-ball.dy+bats[0].dy/5;
+                        ball.dx+=bats[0].dx/5;
+                        ball.y=bats[0].y-20;
+                    }
+                    else{
+                        ball.dx=-ball.dx;
+                    }
                 }
                     break;
                 case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
-                    ball.dx=-ball.dx+bats[1].dx/5;
-                    ball.dy+=bats[1].dy/5;
-                    collision=1;
+                    collision = 1;
+                    Rectangle2D intersection= bats[1].getBounds().createIntersection(ball.getBounds());
+                    if(intersection.getHeight()>intersection.getWidth()) {
+                        ball.dx = -ball.dx + bats[1].dx / 5;
+                        ball.dy += bats[1].dy / 5;
+                        ball.x=bats[1].x-20;
+                    }
+                    else{
+                        ball.dy=-ball.dy;
+                    }
                 }
                     break;
                 case 2: if(bats[2].getBounds().intersects(ball.getBounds())){
-                    ball.dy=-ball.dy+bats[2].dy/5;
-                    ball.dx+=bats[2].dx/5;
-                    collision=2;
+                    collision = 2;
+                    Rectangle2D intersection= bats[2].getBounds().createIntersection(ball.getBounds());
+                    if(intersection.getWidth()>intersection.getHeight()) {
+                        ball.dy = -ball.dy + bats[2].dy / 5;
+                        ball.dx += bats[2].dx / 5;
+                        ball.y=bats[2].y+10;
+                    }
+                    else{
+                        ball.dx=-ball.dx;
+                    }
                 }
                     break;
                 case 3: if(bats[3].getBounds().intersects(ball.getBounds())){
-                    ball.dx=-ball.dx+bats[3].dx/5;
-                    ball.dy+=bats[3].dy/5;
-                    collision=3;
+                    collision = 3;
+                    Rectangle2D intersection= bats[3].getBounds().createIntersection(ball.getBounds());
+                    if(intersection.getHeight()>intersection.getWidth()) {
+                        ball.dx = -ball.dx + bats[3].dx / 5;
+                        ball.dy += bats[3].dy / 5;
+                        ball.x=bats[3].x+10;
+                    }
+                    else{
+                        ball.dy=-ball.dy;
+                    }
                 }
                     break;
             }
