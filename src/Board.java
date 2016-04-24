@@ -32,7 +32,7 @@ public class Board extends JPanel implements ActionListener {
         background = imgBack.getImage();
         addKeyListener(new TAdapter());
         initGame();
-    }
+}
     public Board(int player){
         this.player=player;
         setFocusable(true);
