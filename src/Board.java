@@ -14,7 +14,7 @@ public class Board extends JPanel implements ActionListener {
     private final int B_HEIGHT = 400;
     private final int DELAY = 18;
 
-    private boolean inGame = true;
+    private boolean inGame[] = {true,true,true,true};
     private int lives[];
     private int collision=-1;
 
@@ -80,117 +80,119 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void draw(Graphics g) {
-        if(inGame){
-            Graphics2D g2d = (Graphics2D) g;
-            RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHints(rh);
 
-            g2d.drawImage(ball.image,ball.x,ball.y,this);
+        Graphics2D g2d = (Graphics2D) g;
+        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHints(rh);
 
-            for(int i=0;i<4;i++){
-                g2d.drawImage(bats[i].image,bats[i].x,bats[i].y,this);
-            }
+        g2d.drawImage(ball.image, ball.x, ball.y, this);
 
-
-            Toolkit.getDefaultToolkit().sync();
+        for (int i = 0; i < 4; i++) {
+            if (inGame[i])
+                g2d.drawImage(bats[i].image, bats[i].x, bats[i].y, this);
         }
+        Graphics2D g2dText = (Graphics2D) g;
+        g2dText.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
+        g2dText.rotate(-Math.PI / 2);
+        g2dText.drawString("Lives: Player 2-" + lives[1], -250, 335);
+        g2dText.rotate(Math.PI / 2);
+        g2dText.drawString("Lives: Player 3-" + lives[2], 150, 75);
+        g2dText.rotate(Math.PI / 2);
+        g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
+
+        Toolkit.getDefaultToolkit().sync();
+
     }
-    private void move(){
-        ball.setPosition( Math.round(ball.x+ball.dx), Math.round(ball.y+ball.dy));
-        for (int i=0; i <4; i++){
-            switch (i){
+    private void move() {
+
+        ball.setPosition(Math.round(ball.x + ball.dx), Math.round(ball.y + ball.dy));
+        for (int i = 0; i < 4; i++) {
+            if (i != player)
+                continue;
+            switch (i) {
                 case 0:
-                    if(((bats[i].x<50 && bats[i].dx<0) || (bats[i].x>275 && bats[i].dx>0)) && ( (bats[i].y>390 && bats[i].dy>0) ||  (bats[i].y<350 && bats[i].dy<0))){
-                        bats[i].setPosition(bats[i].x, bats[i].y );
+                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 390 && bats[i].dy > 0) || (bats[i].y < 350 && bats[i].dy < 0))) {
+                        bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
-                    if(bats[i].x<50 && bats[i].dx<0) {
+                    if (bats[i].x < 50 && bats[i].dx < 0) {
+                        bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
+                        continue;
+                    } else if (bats[i].x > 275 && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
                     }
-                    else if (bats[i].x>275 && bats[i].dx>0) {
-                        bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
+                    if (bats[i].y > 390 && bats[i].dy > 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
-                    }
-                    if(bats[i].y>390 && bats[i].dy>0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
-                        continue;
-                    }
-                    else if(bats[i].y<350 && bats[i].dy<0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y < 350 && bats[i].dy < 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     }
                     break;
                 case 1:
-                    if(((bats[i].x<350 && bats[i].dx<0) || (bats[i].x>390 && bats[i].dx>0)) && ( (bats[i].y>275 && bats[i].dy>0) ||  (bats[i].y<50 && bats[i].dy<0))){
-                        bats[i].setPosition(bats[i].x, bats[i].y );
+                    if (((bats[i].x < 350 && bats[i].dx < 0) || (bats[i].x > 390 && bats[i].dx > 0)) && ((bats[i].y > 275 && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
+                        bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
-                    if(bats[i].x<350 && bats[i].dx<0) {
+                    if (bats[i].x < 350 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if (bats[i].x>390 && bats[i].dx>0) {
+                    } else if (bats[i].x > 390 && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if(bats[i].y>275 && bats[i].dy>0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y > 275 && bats[i].dy > 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
-                    }
-                    else if(bats[i].y<50 && bats[i].dy<0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y < 50 && bats[i].dy < 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     }
                     break;
                 case 2:
-                    if(((bats[i].x<50 && bats[i].dx<0) || (bats[i].x>275 && bats[i].dx>0)) && ( (bats[i].y>40 && bats[i].dy>0) ||  (bats[i].y<0 && bats[i].dy<0))){
-                        bats[i].setPosition(bats[i].x, bats[i].y );
+                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 40 && bats[i].dy > 0) || (bats[i].y < 0 && bats[i].dy < 0))) {
+                        bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
-                    if(bats[i].x<50 && bats[i].dx<0) {
+                    if (bats[i].x < 50 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if (bats[i].x>275 && bats[i].dx>0) {
+                    } else if (bats[i].x > 275 && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if(bats[i].y>40 && bats[i].dy>0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y > 40 && bats[i].dy > 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
-                    }
-                    else if(bats[i].y<0 && bats[i].dy<0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y < 0 && bats[i].dy < 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     }
                     break;
                 case 3:
-                    if(((bats[i].x<0 && bats[i].dx<0) || (bats[i].x>40&& bats[i].dx>0)) && ( (bats[i].y>275 && bats[i].dy>0) ||  (bats[i].y<50 && bats[i].dy<0))){
-                        bats[i].setPosition(bats[i].x, bats[i].y );
+                    if (((bats[i].x < 0 && bats[i].dx < 0) || (bats[i].x > 40 && bats[i].dx > 0)) && ((bats[i].y > 275 && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
+                        bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
-                    if(bats[i].x<0 && bats[i].dx<0) {
+                    if (bats[i].x < 0 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if (bats[i].x>40 && bats[i].dx>0) {
+                    } else if (bats[i].x > 40 && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    }
-                    else if(bats[i].y>275 && bats[i].dy>0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y > 275 && bats[i].dy > 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
-                    }
-                    else if(bats[i].y<50 && bats[i].dy<0) {
-                        bats[i].setPosition(bats[i].x +bats[i].dx, bats[i].y);
+                    } else if (bats[i].y < 50 && bats[i].dy < 0) {
+                        bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     }
                     break;
             }
-            bats[i].setPosition(bats[i].x+bats[i].dx, bats[i].y + bats[i].dy);
+            bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y + bats[i].dy);
         }
+
     }
     private void checkCollision(){
         //collision with the walls
@@ -248,22 +250,22 @@ public class Board extends JPanel implements ActionListener {
                     collision=0;
                     Rectangle2D intersection= bats[0].getBounds().createIntersection(ball.getBounds());
                     if(intersection.getWidth()>intersection.getHeight()){
-                        ball.dy=-ball.dy+bats[0].dy/2;
-                        ball.dx+=(float)bats[0].dx /7;
+                        ball.dy=-ball.dy+ (float)(bats[0].dy)/4;
+                        ball.dx+=(float)bats[0].dx /10;
                         ball.y=ball.y<bats[0].y?bats[0].y-20:bats[0].y+10;
                     }
                     else{
                         ball.dx=-ball.dx;
                     }
-//                    System.out.println (ball.dx +"      "+ ball.dy);
+                   System.out.println (ball.dx +"      "+ ball.dy);
                 }
                     break;
                 case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
                     collision = 1;
                     Rectangle2D intersection= bats[1].getBounds().createIntersection(ball.getBounds());
                     if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + bats[1].dx / 2;
-                        ball.dy +=(float) bats[1].dy / 7;
+                        ball.dx = -ball.dx + (float) bats[1].dx / 4;
+                        ball.dy +=(float) bats[1].dy / 10;
                         ball.x=ball.x<bats[1].x?bats[1].x-20:bats[1].x+10;
                     }
                     else{
@@ -275,8 +277,8 @@ public class Board extends JPanel implements ActionListener {
                     collision = 2;
                     Rectangle2D intersection= bats[2].getBounds().createIntersection(ball.getBounds());
                     if(intersection.getWidth()>intersection.getHeight()) {
-                        ball.dy = -ball.dy + bats[2].dy / 2;
-                        ball.dx += (float)bats[2].dx / 7;
+                        ball.dy = -ball.dy + (float) bats[2].dy / 4;
+                        ball.dx += (float)bats[2].dx / 10;
                         ball.y=ball.y>bats[2].y?bats[2].y+10:bats[2].y-20;
                     }
                     else{
@@ -288,8 +290,8 @@ public class Board extends JPanel implements ActionListener {
                     collision = 3;
                     Rectangle2D intersection= bats[3].getBounds().createIntersection(ball.getBounds());
                     if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + bats[3].dx / 2;
-                        ball.dy += (float) bats[3].dy / 7;
+                        ball.dx = -ball.dx + (float) bats[3].dx / 4;
+                        ball.dy += (float) bats[3].dy / 10;
                         ball.x=ball.x>bats[3].x?bats[3].x+10:bats[3].x-20;
                     }
                     else{
@@ -301,23 +303,35 @@ public class Board extends JPanel implements ActionListener {
         }
 
     }
+    private void checkIngame() {
+        for(int i=0;i<4;i++){
+            if(lives[i]<=0)
+                inGame[i]=false;
+        }
+    }
+
     private class TAdapter extends KeyAdapter {
 
         @Override
         public void keyReleased(KeyEvent e) {
             bats[player].keyReleased(e);
         }
-
         @Override
         public void keyPressed(KeyEvent e) {
             bats[player].keyPressed(e);
         }
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(inGame){
+        int count=0;
+        for (boolean x:inGame)
+            if(x)
+                count++;
+        if(count>0){
             checkCollision();
+            checkIngame();
             move();
         }
         repaint();
