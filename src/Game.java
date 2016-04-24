@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Created by Sahil on 4/17/2016.
+ * TODO Multiplayer and AI
  */
 
 public class Game {
@@ -27,6 +28,7 @@ public class Game {
         gameCards.add(gameMenu,"menu");
         gameCards.add(settingsMenu,"settings");
         screenNumber=0;
+        ai=0;
         singleplayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

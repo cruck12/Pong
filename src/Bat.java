@@ -52,17 +52,33 @@ public class Bat {
     //TODO Restrict movement in required region
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_LEFT) {
-            dx = -5;
+        if(horizontal) {
+            if (key == KeyEvent.VK_LEFT) {
+                dx = -5;
+            }
+            if (key == KeyEvent.VK_RIGHT) {
+                dx = 5;
+            }
+            if (key == KeyEvent.VK_UP) {
+                dy = -2;
+            }
+            if (key == KeyEvent.VK_DOWN) {
+                dy = 2;
+            }
         }
-        if (key == KeyEvent.VK_RIGHT) {
-            dx = 5;
-        }
-        if (key == KeyEvent.VK_UP) {
-            dy = -5;
-        }
-        if (key == KeyEvent.VK_DOWN) {
-            dy = 5;
+        else{
+            if (key == KeyEvent.VK_LEFT) {
+                dx = -2;
+            }
+            if (key == KeyEvent.VK_RIGHT) {
+                dx = 2;
+            }
+            if (key == KeyEvent.VK_UP) {
+                dy = -5;
+            }
+            if (key == KeyEvent.VK_DOWN) {
+                dy = 5;
+            }
         }
     }
     public void keyReleased(KeyEvent e) {

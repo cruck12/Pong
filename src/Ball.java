@@ -6,8 +6,8 @@ import java.util.Random;
  * Created by Sahil on 4/20/2016.
  */
 public class Ball {
-    int dx =0;
-    int dy =0;
+    float dx =0;
+    float dy =0;
     int x;
     int y;
     Rectangle bounds;
@@ -26,7 +26,7 @@ public class Ball {
 
     public void setVelocity(){
         Random rand = new Random();
-        dx = rand.nextInt()%7 ;
+        dx = rand.nextInt()%6 +1 ;
         dy = rand.nextInt()%6+ 1 ;
     }
 
