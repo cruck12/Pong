@@ -56,6 +56,12 @@ public class Game {
                 initSettings();
             }
         });
+        multiplayerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void initSettings() {
