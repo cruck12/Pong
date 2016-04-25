@@ -68,7 +68,7 @@ public class Game {
         if(settingsMenu.getComponentCount()>0)
             return;
         JLabel aiLabel = new JLabel("AI difficulty",JLabel.CENTER);
-        String aiModes[] = {"Easy", "Hard"};
+        String aiModes[] = {"Easy", "Hard", "Expert"};
         final JComboBox aiSetting = new JComboBox(aiModes);
         aiSetting.setSelectedIndex(0);
         aiSetting.addActionListener(new ActionListener() {
