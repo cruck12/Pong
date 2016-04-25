@@ -53,16 +53,16 @@ public class Board extends JPanel implements ActionListener {
             lives[i]=5;
             switch (i){
                 case 0: bats[i]=new Bat(true);
-                    bats[i].setPosition(180,390);
+                    bats[i].setPosition(180,385);
                     break;
                 case 1: bats[i]=new Bat(false);
-                    bats[i].setPosition(390,180);
+                    bats[i].setPosition(385,180);
                     break;
                 case 2: bats[i]=new Bat(true);
-                    bats[i].setPosition(180,0);
+                    bats[i].setPosition(180,5);
                     break;
                 case 3: bats[i]=new Bat(false);
-                    bats[i].setPosition(0,180);
+                    bats[i].setPosition(5,180);
                     break;
             }
 
@@ -91,6 +91,8 @@ public class Board extends JPanel implements ActionListener {
         for (int i = 0; i < 4; i++) {
             if (inGame[i])
                 g2d.drawImage(bats[i].image, bats[i].x, bats[i].y, this);
+            else
+                bats[i].setPosition(500,500);
         }
         Graphics2D g2dText = (Graphics2D) g;
         g2dText.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -291,7 +293,7 @@ public class Board extends JPanel implements ActionListener {
                     else{
                         ball.dx=-ball.dx;
                     }
-                   System.out.println (ball.dx +"      "+ ball.dy);
+//                   System.out.println (ball.dx +"      "+ ball.dy);
                 }
                     break;
                 case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
@@ -363,7 +365,7 @@ public class Board extends JPanel implements ActionListener {
         for (boolean x:inGame)
             if(x)
                 count++;
-        if(count>0){
+        if(count>1){
             checkCollision();
             checkIngame();
             move();
