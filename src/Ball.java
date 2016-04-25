@@ -29,6 +29,10 @@ public class Ball {
         dx = rand.nextInt()%6 +1 ;
         dy = rand.nextInt()%6+ 1 ;
     }
+    public void setVelocity(float dx, float dy){
+        this.dx = dx ;
+        this.dy = dy ;
+    }
 
     public Rectangle getBounds(){
         return bounds;
