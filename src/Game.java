@@ -33,7 +33,7 @@ public class Game {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = new JFrame("Game");
-                frame.setContentPane(new Board(screenNumber));
+                frame.setContentPane(new Board(screenNumber,ai));
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setSize(400,400);
                 frame.setResizable(false);

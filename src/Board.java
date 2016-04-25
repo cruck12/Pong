@@ -17,6 +17,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean inGame[] = {true,true,true,true};
     private int lives[];
     private int collision=-1;
+    private int ai=0;
 
     private Timer timer;
     private Ball ball;
@@ -33,7 +34,8 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
         initGame();
 }
-    public Board(int player){
+    public Board(int player,int ai){
+        this.ai=ai;
         this.player=player;
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
@@ -112,25 +114,144 @@ public class Board extends JPanel implements ActionListener {
         ball.setPosition(Math.round(ball.x + ball.dx), Math.round(ball.y + ball.dy));
         for (int i = 0; i < 4; i++) {
             if (i != player){
-                switch(i){
-                    case 0:
-                    case 2:
-                        if(bats[i].x+65<ball.x)
-                            bats[i].dx=5;
-                        else if(bats[i].x-10>ball.x)
-                            bats[i].dx=-5;
-                        else
-                            bats[i].dx=(ball.x-bats[i].x-27)/15;
-                        break;
-                    case 1:
-                    case 3:
-                        if(bats[i].y+65<ball.y)
-                            bats[i].dy=5;
-                        else if(bats[i].y-10>ball.y)
-                            bats[i].dy=-5;
-                        else
-                            bats[i].dy=(ball.y-bats[i].y-27)/15;
-                        break;
+                if(ai==0) {
+                    switch (i) {
+                        case 0:
+                        case 2:
+                            if (bats[i].x + 65 < ball.x)
+                                bats[i].dx = 5;
+                            else if (bats[i].x - 10 > ball.x)
+                                bats[i].dx = -5;
+                            else
+                                bats[i].dx = (ball.x - bats[i].x - 27) / 15;
+                            break;
+                        case 1:
+                        case 3:
+                            if (bats[i].y + 65 < ball.y)
+                                bats[i].dy = 5;
+                            else if (bats[i].y - 10 > ball.y)
+                                bats[i].dy = -5;
+                            else
+                                bats[i].dy = (ball.y - bats[i].y - 27) / 15;
+                            break;
+                    }
+                }
+                else{
+                    int xf;
+                    switch(i){
+                        case 0:
+                            if(ball.dy<0) {
+                                xf = ball.x + (int) ((ball.y + 365) * ball.dx /(- ball.dy));
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[0].x + 65 < xf)
+                                    bats[0].dx = 5;
+                                else if (bats[0].x - 10 > xf)
+                                    bats[0].dx = -5;
+                                else
+                                    bats[0].dx = (xf - bats[0].x - 27) / 15;
+                            }
+                            else if(ball.dy>0){
+                                xf = ball.x + (int) ((365 - ball.y) * ball.dx / ball.dy);
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[0].x + 65 < xf)
+                                    bats[0].dx = 5;
+                                else if (bats[0].x - 10 > xf)
+                                    bats[0].dx = -5;
+                                else
+                                    bats[0].dx = (xf - bats[0].x - 27) / 15;
+                            }
+                            break;
+                        case 1:
+                            if(ball.dx<0) {
+                                xf = ball.y + (int) ((ball.x + 365) * ball.dy /(- ball.dx));
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[1].y + 65 < xf)
+                                    bats[1].dy = 5;
+                                else if (bats[1].y - 10 > xf)
+                                    bats[1].dy = -5;
+                                else
+                                    bats[1].dy = (xf - bats[1].y - 27) / 15;
+                            }
+                            else if(ball.dx>0){
+                                xf = ball.y + (int) ((365 - ball.x) * ball.dy / ball.dx);
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[1].y + 65 < xf)
+                                    bats[1].dy = 5;
+                                else if (bats[1].y - 10 > xf)
+                                    bats[1].dy = -5;
+                                else
+                                    bats[1].dy = (xf - bats[1].y - 27) / 15;
+                            }
+                            break;
+                        case 2:
+                            if(ball.dy<0) {
+                                xf = ball.x + (int) ((ball.y-15) * ball.dx /(- ball.dy));
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[2].x + 65 < xf)
+                                    bats[2].dx = 5;
+                                else if (bats[2].x - 10 > xf)
+                                    bats[2].dx = -5;
+                                else
+                                    bats[2].dx = (xf - bats[2].x - 27) / 15;
+                            }
+                            else if(ball.dy>0){
+                                xf = ball.x + (int) ((765 - ball.y) * ball.dx / ball.dy);
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[2].x + 65 < xf)
+                                    bats[2].dx = 5;
+                                else if (bats[2].x - 10 > xf)
+                                    bats[2].dx = -5;
+                                else
+                                    bats[2].dx = (xf - bats[2].x - 27) / 15;
+                            }
+                            break;
+                        case 3:
+                            if(ball.dx<0) {
+                                xf = ball.y + (int) ((ball.x-15) * ball.dy /(- ball.dx));
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[3].y + 65 < xf)
+                                    bats[3].dy = 5;
+                                else if (bats[3].y - 10 > xf)
+                                    bats[3].dy = -5;
+                                else
+                                    bats[3].dy = (xf - bats[3].y - 27) / 15;
+                            }
+                            else if(ball.dx>0){
+                                xf = ball.y + (int) ((765 - ball.x) * ball.dy / ball.dx);
+                                if((xf/400)%2==0)
+                                    xf=Math.abs(xf%400);
+                                else
+                                    xf=400-Math.abs(xf%400);
+                                if (bats[3].y + 65 < xf)
+                                    bats[3].dy = 5;
+                                else if (bats[3].y - 10 > xf)
+                                    bats[3].dy = -5;
+                                else
+                                    bats[3].dy = (xf - bats[3].y - 27) / 15;
+                            }
+                            break;
+                    }
                 }
             }
             switch (i) {
@@ -264,9 +385,6 @@ public class Board extends JPanel implements ActionListener {
         }
         // Collision with the Bat
         for (int i=0; i<4; i++){
-            /*if(collision==i){
-                continue;
-            }*/
             switch (i){
                 case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
                     collision=0;
