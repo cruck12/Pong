@@ -56,6 +56,19 @@ public class Game {
                 initSettings();
             }
         });
+        multiplayerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Game");
+                MultiplayerOptions multiplayerOptions = new MultiplayerOptions();
+                frame.setContentPane(multiplayerOptions.getContentPane());
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(400,400);
+                frame.setResizable(false);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
     }
 
     private void initSettings() {
