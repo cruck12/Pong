@@ -109,8 +109,42 @@ public class Board extends JPanel implements ActionListener {
 
         ball.setPosition(Math.round(ball.x + ball.dx), Math.round(ball.y + ball.dy));
         for (int i = 0; i < 4; i++) {
-            if (i != player)
-                continue;
+            if (i != player){
+                switch(i){
+                    case 0:
+                        if(bats[i].x+24<ball.x)
+                            bats[i].dx=5;
+                        else if(bats[i].x+30>ball.x)
+                            bats[i].dx=-5;
+                        else
+                            bats[i].dx=0;
+                        break;
+                    case 1:
+                        if(bats[i].y+24<ball.y)
+                            bats[i].dy=5;
+                        else if(bats[i].y+30>ball.y)
+                            bats[i].dy=-5;
+                        else
+                            bats[i].dy=0;
+                        break;
+                    case 2:
+                        if(bats[i].x+24<ball.x)
+                            bats[i].dx=5;
+                        else if(bats[i].x+30>ball.x)
+                            bats[i].dx=-5;
+                        else
+                            bats[i].dx=0;
+                        break;
+                    case 3:
+                        if(bats[i].y+24<ball.y)
+                            bats[i].dy=5;
+                        else if(bats[i].y+30>ball.y)
+                            bats[i].dy=-5;
+                        else
+                            bats[i].dy=0;
+                        break;
+                }
+            }
             switch (i) {
                 case 0:
                     if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 390 && bats[i].dy > 0) || (bats[i].y < 350 && bats[i].dy < 0))) {
