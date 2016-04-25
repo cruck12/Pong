@@ -114,36 +114,22 @@ public class Board extends JPanel implements ActionListener {
             if (i != player){
                 switch(i){
                     case 0:
-                        if(bats[i].x+24<ball.x)
+                    case 2:
+                        if(bats[i].x+65<ball.x)
                             bats[i].dx=5;
-                        else if(bats[i].x+30>ball.x)
+                        else if(bats[i].x-10>ball.x)
                             bats[i].dx=-5;
                         else
-                            bats[i].dx=0;
+                            bats[i].dx=(ball.x-bats[i].x-27)/15;
                         break;
                     case 1:
-                        if(bats[i].y+24<ball.y)
-                            bats[i].dy=5;
-                        else if(bats[i].y+30>ball.y)
-                            bats[i].dy=-5;
-                        else
-                            bats[i].dy=0;
-                        break;
-                    case 2:
-                        if(bats[i].x+24<ball.x)
-                            bats[i].dx=5;
-                        else if(bats[i].x+30>ball.x)
-                            bats[i].dx=-5;
-                        else
-                            bats[i].dx=0;
-                        break;
                     case 3:
-                        if(bats[i].y+24<ball.y)
+                        if(bats[i].y+65<ball.y)
                             bats[i].dy=5;
-                        else if(bats[i].y+30>ball.y)
+                        else if(bats[i].y-10>ball.y)
                             bats[i].dy=-5;
                         else
-                            bats[i].dy=0;
+                            bats[i].dy=(ball.y-bats[i].y-27)/15;
                         break;
                 }
             }
@@ -278,9 +264,9 @@ public class Board extends JPanel implements ActionListener {
         }
         // Collision with the Bat
         for (int i=0; i<4; i++){
-            if(collision==i){
+            /*if(collision==i){
                 continue;
-            }
+            }*/
             switch (i){
                 case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
                     collision=0;
