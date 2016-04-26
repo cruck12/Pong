@@ -354,9 +354,25 @@ public class MultiplayerBoard extends JPanel  {
         }
         repaint();
     }
+    public void Update(){
+        int count=0;
+        for (boolean x:inGame)
+            if(x)
+                count++;
+        if(count>1){
+            checkCollision();
+            checkIngame();
+            move();
+        }
+        repaint();
+    }
 
     public int[] getPlayerBatVelocity(int player){
         int[] tmp = {bats[player].dx,bats[player].dy};
         return tmp;
+    }
+
+    public void setBallVelocity(float[] vel){
+        ball.setVelocity(vel[0],vel[1]);
     }
 }

@@ -59,7 +59,13 @@ public class Game {
         multiplayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JFrame frame = new JFrame("Game");
+                frame.setContentPane(new MultiplayerOptions().getContentPane());
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setSize(500,400);
+                frame.setResizable(true);
+//                frame.pack();
+                frame.setVisible(true);
             }
         });
     }

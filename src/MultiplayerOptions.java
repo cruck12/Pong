@@ -4,11 +4,31 @@
  * and open the template in the editor.
  */
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.io.*;
+import java.net.*;
+import javax.swing.Timer;
+
 /**
  *
  * @author Gautam
  */
 public class MultiplayerOptions extends javax.swing.JFrame {
+
+    ArrayList clientOutputStreams;
+    ArrayList users;
+    String own_ip;
+    int connectToEveryone = 0;
+    String host_ip;
+    int playerNumber;
+    MultiplayerBoard board;
+    Timer timer;
+    private final int DELAY = 18;
+    int[][] bats;
+
 
     /**
      * Creates new form MultiplayerOptions
@@ -29,6 +49,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         joinButton = new javax.swing.JButton();
         IPtext = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        msg_area = new javax.swing.JTextArea();
+        connectButton = new javax.swing.JButton();
+        startButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,30 +78,59 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             }
         });
 
+        msg_area.setColumns(20);
+        msg_area.setRows(5);
+        jScrollPane1.setViewportView(msg_area);
+
+        connectButton.setText("Connect");
+        connectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                connectButtonActionPerformed(evt);
+            }
+        });
+
+        startButton.setText("Start Game");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(createButton)
-                                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(createButton)
+                                                .addGap(34, 34, 34)
                                                 .addComponent(joinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(IPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(14, Short.MAX_VALUE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(IPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(connectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(joinButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                                        .addComponent(IPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(IPtext)
-                                        .addComponent(joinButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(connectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -85,21 +138,263 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
     private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        try {
+            if (!IPtext.getText().equals("")) {
+                msg_area.append("You have set the host IP to " + IPtext.getText() + "\n");
+                host_ip = IPtext.getText();
+                users.add(host_ip);
+                own_ip = InetAddress.getLocalHost().toString();
+                own_ip = own_ip.substring(own_ip.lastIndexOf('/')+1);
+                Socket user = new Socket(host_ip, 2222);
+                msg_area.append("Established connection to host" + "\n");
+                PrintWriter writer = new PrintWriter(user.getOutputStream());
+                Thread starter = new Thread(new ServerStart());
+                starter.start();
+                Thread listener = new Thread(new ClientHandler(user, writer));
+                listener.start();
+            } else {
+                msg_area.append("No IP has been given" + "\n");
+            }
+        } catch (Exception e) {
+            msg_area.append("Initial connectivity problems" + "\n");
+        }
     }
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        try {
+            msg_area.append("Server started...\n");
+            connectToEveryone = 1;
+            msg_area.append("Ready to receive all the IPs" + "\n");
+            playerNumber = 0;
+            msg_area.append("You have been assigned as the 0 player" + "\n");
+            own_ip = InetAddress.getLocalHost().toString();
+            own_ip = own_ip.substring(own_ip.lastIndexOf('/')+1);
+            System.out.println(own_ip);
+            Thread starter = new Thread(new ServerStart());
+            starter.start();
+        }
+        catch (Exception e)
+        {
+            msg_area.append("There was some problem in creating a lobby" + "\n");
+        }
     }
 
     private void IPtextActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
+    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        handleConnections();
+    }
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        tellEveryone("START");
+        System.out.println(playerNumber);
+        board = new MultiplayerBoard(playerNumber);
+        JFrame frame = new JFrame("Game");
+        frame.setContentPane(board);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400,400);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setVisible(true);
+
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                board.Update();
+            }
+        };
+        timer=new Timer(DELAY,taskPerformer);
+        timer.start();
+
+    }
+
+
+    public class ServerStart implements Runnable {
+
+        @Override
+        public void run() {
+            clientOutputStreams = new ArrayList();
+            users = new ArrayList();
+            int player = 1 ;
+            String sent_ip;
+            try {
+                ServerSocket serverSock = new ServerSocket(2222);
+                msg_area.append("Server is at IP = "
+                        + serverSock.getInetAddress().getLocalHost().getHostAddress()
+                        + " and the port is = 2222" + "\n");
+
+                if (connectToEveryone == 1) {
+                    host_ip = serverSock.getInetAddress().getLocalHost().getHostAddress();
+                    users.add(host_ip);
+                }
+
+                while (true) {
+                    Socket clientSock = serverSock.accept();
+                    PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
+                    clientOutputStreams.add(writer);
+                    if (!users.contains(clientSock.getInetAddress().getHostAddress())) {
+                        users.add(clientSock.getInetAddress().getHostAddress());
+                    }
+                    msg_area.append("Got a connection from "
+                            + clientSock.getInetAddress().getHostAddress() + "\n");
+                    tellEveryone ("Player"+" "+player+" "+clientSock.getInetAddress().getHostAddress());
+                    msg_area.append("Assigned" +clientSock.getInetAddress().getHostAddress()
+                            + " "+ player + " "+"player" );
+                    player = player + 1;
+                    if (own_ip.equals(host_ip)) {
+                        Iterator it = users.iterator();
+                        while (it.hasNext()) {
+                            sent_ip = (String) it.next();
+                            msg_area.append("Sent the IP " + sent_ip + "\n");
+                            tellEveryone("IP:" + " " + sent_ip);
+                        }
+                    }
+                    Thread listener = new Thread(new ServerHandler(clientSock, writer));
+                    listener.start();
+
+                }
+            } catch (Exception ex) {
+                msg_area.append("Error making a connection. \n");
+            }
+        }
+    }
+
+    public class ClientHandler implements Runnable {
+
+        BufferedReader reader;
+        Socket sock;
+        PrintWriter client;
+
+        public ClientHandler(Socket clientSocket, PrintWriter user) {
+            client = user;
+            try {
+                sock = clientSocket;
+                InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
+                reader = new BufferedReader(isReader);
+            } catch (Exception ex) {
+                msg_area.append("Unexpected error... \n");
+            }
+
+        }
+
+        @Override
+        public void run() {
+            String message;
+            try {
+                while ((message = reader.readLine()) != null) {
+                    String[] ip_array = message.split("\\s+");
+                    if (ip_array[0].equals("IP:")) {
+
+                        if (!users.contains(ip_array[1])) {
+                            msg_area.append("An IP was received " + ip_array[1] + "\n");
+                            users.add(ip_array[1]);
+                        }
+                    }
+                    else if (ip_array[0].equals("Player"))
+                    {
+                        if(own_ip.equals(ip_array[2]))
+                        {
+                            playerNumber = Integer.parseInt(ip_array[1]);
+                        }
+                    }
+                    else if (ip_array[0].equals("START"))
+                    {
+                        board = new MultiplayerBoard(playerNumber);
+                    }
+                    else {
+                        msg_area.append("Received: " + message + "\n");
+                    }
+                }
+            } catch (IOException ex) {
+                msg_area.append("Lost a connection. \n");
+                ex.printStackTrace();
+                clientOutputStreams.remove(client);
+            }
+        }
+    }
+
+    public void handleConnections() {
+        Iterator it = users.iterator();
+
+        while (it.hasNext()) {
+            try {
+                String user_ip = (String) it.next();
+                if (!user_ip.equals(own_ip)
+                        && !user_ip.equals(host_ip)) {
+                    Socket user = new Socket(user_ip, 2222);
+                    msg_area.append("Established connection with" + user_ip + "\n");
+                    PrintWriter writer = new PrintWriter(user.getOutputStream());
+                    Thread listener = new Thread(new ClientHandler(user, writer));
+                    listener.start();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                msg_area.append("Error contacting everyone. \n");
+            }
+        }
+    }
+
+    public class ServerHandler implements Runnable {
+
+        BufferedReader reader;
+        Socket sock;
+        PrintWriter client;
+
+        public ServerHandler(Socket clientSocket, PrintWriter user) {
+            client = user;
+            try {
+                sock = clientSocket;
+                InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
+                reader = new BufferedReader(isReader);
+            } catch (Exception ex) {
+                msg_area.append("Unexpected error... \n");
+            }
+
+        }
+
+        @Override
+        public void run() {
+            String message;
+            try {
+                while ((message = reader.readLine()) != null) {
+
+                }
+            } catch (IOException ex) {
+                msg_area.append("Lost a connection. \n");
+                ex.printStackTrace();
+                clientOutputStreams.remove(client);
+            }
+        }
+    }
+
+    public void tellEveryone(String message) {
+        Iterator it = clientOutputStreams.iterator();
+
+        while (it.hasNext()) {
+            try {
+                PrintWriter writer = (PrintWriter) it.next();
+                writer.println(message);
+                writer.flush();
+
+            } catch (Exception ex) {
+                msg_area.append("Error telling everyone. \n");
+            }
+        }
+    }
 
 
     // Variables declaration - do not modify
     private javax.swing.JTextField IPtext;
+    private javax.swing.JButton connectButton;
     private javax.swing.JButton createButton;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton joinButton;
+    private static javax.swing.JTextArea msg_area;
+    private javax.swing.JButton startButton;
     // End of variables declaration
 }
+
