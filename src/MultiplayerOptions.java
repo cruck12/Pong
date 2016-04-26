@@ -210,13 +210,13 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
-                int[] pos_ball = new int[2];
                 pos = board.getPlayerBatPosition(playerNumber);
-                pos_ball = board.getBallPosition();
+                ball = board.getBallPosition();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
-                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+pos_ball[0]+" "+pos_ball[1]);
-                board.Update(false,ball,bats);
+                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
+                board.Update(true,ball,bats);
+                ball= board.getBallPosition();
             }
         };
         timer=new Timer(DELAY,taskPerformer);
@@ -332,18 +332,20 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 int[] pos = new int[2];
-                                int[] pos_ball = new int[2];
-                                pos_ball = board.getBallPosition();
+                                ball = board.getBallPosition();
                                 pos = board.getPlayerBatPosition(playerNumber);
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 if(own_ip.equals(host_ip)) {
-                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+pos_ball[0]+" "+pos_ball[1]);
+                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
+                                    board.Update(true,ball,bats);
+                                    ball= board.getBallPosition();
                                 }
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
+                                    board.Update(true,ball,bats);
                                 }
-                                board.Update(false,ball,bats);
+
                             }
                         };
                         timer=new Timer(DELAY,taskPerformer);
@@ -383,6 +385,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
+                                System.out.println(ball[0]+" "+ball[1]);
                                 break;
                             }
                             case 1: {

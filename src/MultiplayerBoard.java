@@ -303,7 +303,7 @@ public class MultiplayerBoard extends JPanel  {
 
     }
     private void moveItems(int[] ballpos, int[][] bat) {
-        ball.setVelocity(ballpos[0],ballpos[1]);
+        setBallPosition(ballpos);
         for(int i=0;i<4;i++){
             bats[i].setPosition(bat[i][0],bat[i][1]);
         }
@@ -370,5 +370,9 @@ public class MultiplayerBoard extends JPanel  {
 
     public void setBallVelocity(float[] vel){
         ball.setVelocity(vel[0],vel[1]);
+    }
+    public void setBallPosition(int[] pos)
+    {
+        ball.setPosition(pos[0],pos[1]);
     }
 }
