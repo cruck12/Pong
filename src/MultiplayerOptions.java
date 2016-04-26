@@ -27,7 +27,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     MultiplayerBoard board;
     Timer timer;
     private final int DELAY = 18;
-    int[][] bats;
+    int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
 
 
     /**
@@ -208,7 +208,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                board.Update();
+                int[] pos = new int[2];
+                pos = board.getPlayerBatPosition(playerNumber);
+                tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
+                board.Update(false,null,bats);
             }
         };
         timer=new Timer(DELAY,taskPerformer);
@@ -264,7 +267,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
                 }
             } catch (Exception ex) {
-                msg_area.append("Error making a connection. \n");
+                msg_area.append("Error making a connection. Reconnecting..... \n");
                 ex.printStackTrace();
             }
         }
@@ -321,11 +324,44 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
-                                board.Update();
+                                int[] pos = new int[2];
+                                pos = board.getPlayerBatPosition(playerNumber);
+                                tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
+                                board.Update(false,null,bats);
                             }
                         };
                         timer=new Timer(DELAY,taskPerformer);
                         timer.start();
+                    }
+
+                    else if(ip_array[0].equals("Move"))
+                    {
+                        switch (Integer.parseInt(ip_array[3])) {
+
+                            case 0 :
+                            {
+                                bats[0][0] = Integer.parseInt(ip_array[1]);
+                                bats[0][1] = Integer.parseInt(ip_array[2]);
+                                break;
+                            }
+                            case 1 :
+                            {
+                                bats[1][0] = Integer.parseInt(ip_array[1]);
+                                bats[1][1] = Integer.parseInt(ip_array[2]);
+                                break;
+                            }
+                            case 2 :
+                            {
+                                bats[2][0] = Integer.parseInt(ip_array[1]);
+                                bats[2][1] = Integer.parseInt(ip_array[2]);
+                                break;
+                            }
+                            case 3 :
+                            {
+                                bats[3][0] = Integer.parseInt(ip_array[1]);
+                                bats[3][1] = Integer.parseInt(ip_array[2]);
+                            }
+                        }
                     }
                     else {
                         msg_area.append("Received: " + message + "\n");

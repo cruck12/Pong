@@ -367,8 +367,8 @@ public class MultiplayerBoard extends JPanel  {
         repaint();
     }
 
-    public int[] getPlayerBatVelocity(int player){
-        int[] tmp = {bats[player].dx,bats[player].dy};
+    public int[] getPlayerBatPosition(int player){
+        int[] tmp = {bats[player].x,bats[player].y};
         return tmp;
     }
 
