@@ -304,7 +304,7 @@ public class MultiplayerBoard extends JPanel  {
     }
     private void moveItems(int[] ballpos, int[][] bat, float[] ballv) {
         setBallPosition(ballpos);
-        setBallVelocity(ballv);
+//        setBallVelocity(ballv);
         for(int i=0;i<4;i++){
             bats[i].setPosition(bat[i][0],bat[i][1]);
         }
@@ -355,10 +355,11 @@ public class MultiplayerBoard extends JPanel  {
             if(x)
                 count++;
         if(count>1){
-            checkCollision();
+//            checkCollision();
+            setBallVelocity(ballv);
             checkIngame();
             if(collision)
-                moveItems(ballPos,bat,ballv);
+                moveItems(ballPos,bat);
             else
                 moveItems(bat);
             move();
