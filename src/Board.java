@@ -595,6 +595,12 @@ public class Board extends JPanel implements ActionListener {
                             ball.dx += (float) bats[0].dx / 10;
                             ball.y = ball.y < bats[0].y ? bats[0].y - 20 : bats[0].y + 10;
                         } else {
+                            if((ball.x<bats[0].x&&ball.dx<0)||(ball.x+ball.WIDTH>bats[0].x+bats[0].WIDTH&&ball.dx>0)){
+                                ball.dy = -ball.dy + (float) (bats[0].dy) / 4;
+                                ball.dx += (float) bats[0].dx / 10;
+                                ball.y = ball.y < bats[0].y ? bats[0].y - 20 : bats[0].y + 10;
+                            }
+                            else
                             ball.dx = -ball.dx;
                         }
                     }
@@ -609,6 +615,12 @@ public class Board extends JPanel implements ActionListener {
                             ball.dy += (float) bats[1].dy / 10;
                             ball.x = ball.x < bats[1].x ? bats[1].x - 20 : bats[1].x + 10;
                         } else {
+                            if((ball.y<bats[1].y&&ball.dy<0)||(ball.y+ball.HEIGHT>bats[1].WIDTH+bats[1].y&&ball.dy>0)){
+                                ball.dx = -ball.dx + (float) bats[1].dx / 4;
+                                ball.dy += (float) bats[1].dy / 10;
+                                ball.x = ball.x < bats[1].x ? bats[1].x - 20 : bats[1].x + 10;
+                            }
+                            else
                             ball.dy = -ball.dy;
                         }
                     }
@@ -623,6 +635,12 @@ public class Board extends JPanel implements ActionListener {
                             ball.dx += (float) bats[2].dx / 10;
                             ball.y = ball.y > bats[2].y ? bats[2].y + 10 : bats[2].y - 20;
                         } else {
+                            if((ball.x<bats[2].x&&ball.dx<0)||(ball.x+ball.WIDTH>bats[2].x+bats[2].WIDTH&&ball.dx>0)){
+                                ball.dy = -ball.dy + (float) bats[2].dy / 4;
+                                ball.dx += (float) bats[2].dx / 10;
+                                ball.y = ball.y > bats[2].y ? bats[2].y + 10 : bats[2].y - 20;
+                            }
+                            else
                             ball.dx = -ball.dx;
                         }
                     }
@@ -637,6 +655,12 @@ public class Board extends JPanel implements ActionListener {
                             ball.dy += (float) bats[3].dy / 10;
                             ball.x = ball.x > bats[3].x ? bats[3].x + 10 : bats[3].x - 20;
                         } else {
+                            if((ball.y<bats[3].y&&ball.dy<0)||(ball.y+ball.HEIGHT>bats[3].WIDTH+bats[3].y&&ball.dy>0)){
+                                ball.dx = -ball.dx + (float) bats[3].dx / 4;
+                                ball.dy += (float) bats[3].dy / 10;
+                                ball.x = ball.x > bats[3].x ? bats[3].x + 10 : bats[3].x - 20;
+                            }
+                            else
                             ball.dy = -ball.dy;
                         }
                     }
