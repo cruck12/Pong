@@ -92,13 +92,17 @@ public class MultiplayerBoard extends JPanel  {
         }
         Graphics2D g2dText = (Graphics2D) g;
         g2dText.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
+        if(lives[0]>0)
+            g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
         g2dText.rotate(-Math.PI / 2);
-        g2dText.drawString("Lives: Player 2-" + lives[1], -250, 335);
+        if(lives[1]>0)
+            g2dText.drawString("Lives: Player 2-" + lives[1], -250, 335);
         g2dText.rotate(Math.PI / 2);
-        g2dText.drawString("Lives: Player 3-" + lives[2], 150, 75);
+        if(lives[2]>0)
+            g2dText.drawString("Lives: Player 3-" + lives[2], 150, 75);
         g2dText.rotate(Math.PI / 2);
-        g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
+        if(lives[3]>0)
+            g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
 
         Toolkit.getDefaultToolkit().sync();
 
@@ -298,7 +302,7 @@ public class MultiplayerBoard extends JPanel  {
         }
 
     }
-    private void moveItems(int[] ballpos, int[][] bat) {
+    private void moveItems(float[] ballpos, int[][] bat) {
         ball.setVelocity(ballpos[0],ballpos[1]);
         for(int i=0;i<4;i++){
             bats[i].setPosition(bat[i][0],bat[i][1]);
@@ -338,7 +342,7 @@ public class MultiplayerBoard extends JPanel  {
 
     }
 
-    public void Update(boolean collision,int[] ballpos,int[][] bat){
+    public void Update(boolean collision,float[] ballVelocity,int[][] bat){
         int count=0;
         for (boolean x:inGame)
             if(x)
@@ -347,26 +351,13 @@ public class MultiplayerBoard extends JPanel  {
             checkCollision();
             checkIngame();
             if(collision)
-                moveItems(ballpos,bat);
+                moveItems(ballVelocity,bat);
             else
                 moveItems(bat);
             move();
         }
         repaint();
     }
-    public void Update(){
-        int count=0;
-        for (boolean x:inGame)
-            if(x)
-                count++;
-        if(count>1){
-            checkCollision();
-            checkIngame();
-            move();
-        }
-        repaint();
-    }
-
     public int[] getPlayerBatPosition(int player){
         int[] tmp = {bats[player].x,bats[player].y};
         return tmp;

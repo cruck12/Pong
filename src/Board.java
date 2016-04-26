@@ -97,13 +97,17 @@ public class Board extends JPanel implements ActionListener {
         }
         Graphics2D g2dText = (Graphics2D) g;
         g2dText.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
+        if(lives[0]>0)
+            g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
         g2dText.rotate(-Math.PI / 2);
-        g2dText.drawString("Lives: Player 2-" + lives[1], -250, 335);
+        if(lives[1]>0)
+            g2dText.drawString("Lives: Player 2-" + lives[1], -250, 335);
         g2dText.rotate(Math.PI / 2);
-        g2dText.drawString("Lives: Player 3-" + lives[2], 150, 75);
+        if(lives[2]>0)
+            g2dText.drawString("Lives: Player 3-" + lives[2], 150, 75);
         g2dText.rotate(Math.PI / 2);
-        g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
+        if(lives[3]>0)
+            g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
 
         Toolkit.getDefaultToolkit().sync();
 

@@ -205,11 +205,14 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
-
+        float[] vel = {2,-3};
+        board.setBallVelocity(vel);
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
                 pos = board.getPlayerBatPosition(playerNumber);
+                bats[playerNumber][0]=pos[0];
+                bats[playerNumber][1]=pos[1];
                 tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
                 board.Update(false,null,bats);
             }
@@ -267,7 +270,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
                 }
             } catch (Exception ex) {
-                msg_area.append("Error making a connection. Reconnecting..... \n");
+                msg_area.append("Error making a connection. \n");
                 ex.printStackTrace();
             }
         }
@@ -321,11 +324,15 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         frame.setResizable(false);
                         frame.pack();
                         frame.setVisible(true);
+                        float[] vel = {2,-3};
+                        board.setBallVelocity(vel);
 
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 int[] pos = new int[2];
                                 pos = board.getPlayerBatPosition(playerNumber);
+                                bats[playerNumber][0]=pos[0];
+                                bats[playerNumber][1]=pos[1];
                                 tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
                                 board.Update(false,null,bats);
                             }
@@ -336,43 +343,38 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
                     else if(ip_array[0].equals("Move"))
                     {
-
-                        switch (Integer.parseInt(ip_array[3])) {
-
-                            case 0 :
-                            {
-                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
-                                    bats[0][0] = Integer.parseInt(ip_array[1]);
-                                    bats[0][1] = Integer.parseInt(ip_array[2]);
+                            switch (Integer.parseInt(ip_array[3])) {
+                                case 0: {
+                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
+                                        bats[0][0] = Integer.parseInt(ip_array[1]);
+                                        bats[0][1] = Integer.parseInt(ip_array[2]);
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            case 1 :
-                            {
-                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
-                                    bats[1][0] = Integer.parseInt(ip_array[1]);
-                                    bats[1][1] = Integer.parseInt(ip_array[2]);
+                                case 1: {
+                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
+                                        bats[1][0] = Integer.parseInt(ip_array[1]);
+                                        bats[1][1] = Integer.parseInt(ip_array[2]);
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            case 2 :
-                            {
-                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
-                                    bats[2][0] = Integer.parseInt(ip_array[1]);
-                                    bats[2][1] = Integer.parseInt(ip_array[2]);
+                                case 2: {
+                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
+                                        bats[2][0] = Integer.parseInt(ip_array[1]);
+                                        bats[2][1] = Integer.parseInt(ip_array[2]);
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            case 3 :
-                            {
-                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
-                                    bats[3][0] = Integer.parseInt(ip_array[1]);
-                                    bats[3][1] = Integer.parseInt(ip_array[2]);
+                                case 3: {
+                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
+                                        bats[3][0] = Integer.parseInt(ip_array[1]);
+                                        bats[3][1] = Integer.parseInt(ip_array[2]);
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
-                    }
+
                     else {
                         msg_area.append("Received: " + message + "\n");
                     }
