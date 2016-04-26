@@ -33,7 +33,7 @@ public class Board extends JPanel implements ActionListener {
         background = imgBack.getImage();
         addKeyListener(new TAdapter());
         initGame();
-}
+    }
     public Board(int player,int ai){
         this.ai=ai;
         this.player=player;
@@ -49,22 +49,22 @@ public class Board extends JPanel implements ActionListener {
         lives= new int[4];
         bats= new Bat[4];
         ball = new Ball();
-        ball.setPosition(200,200);
+        ball.setPosition(B_WIDTH/2,B_HEIGHT/2);
         ball.setVelocity();
         for(int i=0;i<4;i++){
             lives[i]=5;
             switch (i){
                 case 0: bats[i]=new Bat(true);
-                    bats[i].setPosition(180,385);
+                    bats[i].setPosition((B_WIDTH-bats[i].WIDTH)/2,B_HEIGHT-bats[i].HEIGHT-5);
                     break;
                 case 1: bats[i]=new Bat(false);
-                    bats[i].setPosition(385,180);
+                    bats[i].setPosition(B_WIDTH-5-bats[i].HEIGHT,(B_HEIGHT-bats[i].WIDTH)/2);
                     break;
                 case 2: bats[i]=new Bat(true);
-                    bats[i].setPosition(180,5);
+                    bats[i].setPosition((B_WIDTH-bats[i].WIDTH)/2,5);
                     break;
                 case 3: bats[i]=new Bat(false);
-                    bats[i].setPosition(5,180);
+                    bats[i].setPosition(5,(B_HEIGHT-bats[i].WIDTH)/2);
                     break;
             }
         }
@@ -108,8 +108,6 @@ public class Board extends JPanel implements ActionListener {
         g2dText.rotate(Math.PI / 2);
         if(lives[3]>0)
             g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
-        g2dText.rotate(-Math.PI / 2);
-        g2dText.drawString("SPEED " + Math.sqrt(ball.dx*ball.dx+ball.dy*ball.dy), 200, 200);
 
         Toolkit.getDefaultToolkit().sync();
 
@@ -454,37 +452,37 @@ public class Board extends JPanel implements ActionListener {
             }
             switch (i) {
                 case 0:
-                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 390 && bats[i].dy > 0) || (bats[i].y < 350 && bats[i].dy < 0))) {
+                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > B_WIDTH-50-bats[i].WIDTH && bats[i].dx > 0)) && ((bats[i].y > B_HEIGHT-bats[i].HEIGHT && bats[i].dy > 0) || (bats[i].y < B_HEIGHT-50 && bats[i].dy < 0))) {
                         bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
                     if (bats[i].x < 50 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].x > 275 && bats[i].dx > 0) {
+                    } else if (bats[i].x > B_WIDTH-50-bats[i].WIDTH && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
                     }
-                    if (bats[i].y > 390 && bats[i].dy > 0) {
+                    if (bats[i].y > B_HEIGHT-bats[i].HEIGHT && bats[i].dy > 0) {
                         bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
-                    } else if (bats[i].y < 350 && bats[i].dy < 0) {
+                    } else if (bats[i].y < B_HEIGHT-50 && bats[i].dy < 0) {
                         bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     }
                     break;
                 case 1:
-                    if (((bats[i].x < 350 && bats[i].dx < 0) || (bats[i].x > 390 && bats[i].dx > 0)) && ((bats[i].y > 275 && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
+                    if (((bats[i].x < B_WIDTH-50 && bats[i].dx < 0) || (bats[i].x > B_WIDTH-bats[i].HEIGHT && bats[i].dx > 0)) && ((bats[i].y > B_HEIGHT-50-bats[i].WIDTH && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
                         bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
-                    if (bats[i].x < 350 && bats[i].dx < 0) {
+                    if (bats[i].x < B_WIDTH-50 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].x > 390 && bats[i].dx > 0) {
+                    } else if (bats[i].x > B_WIDTH-bats[i].HEIGHT && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].y > 275 && bats[i].dy > 0) {
+                    } else if (bats[i].y > B_HEIGHT-50-bats[i].WIDTH && bats[i].dy > 0) {
                         bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     } else if (bats[i].y < 50 && bats[i].dy < 0) {
@@ -493,17 +491,17 @@ public class Board extends JPanel implements ActionListener {
                     }
                     break;
                 case 2:
-                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 40 && bats[i].dy > 0) || (bats[i].y < 0 && bats[i].dy < 0))) {
+                    if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > B_WIDTH-50-bats[i].WIDTH && bats[i].dx > 0)) && ((bats[i].y > 50-bats[i].HEIGHT && bats[i].dy > 0) || (bats[i].y < 0 && bats[i].dy < 0))) {
                         bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
                     if (bats[i].x < 50 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].x > 275 && bats[i].dx > 0) {
+                    } else if (bats[i].x > B_WIDTH-50-bats[i].WIDTH && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].y > 40 && bats[i].dy > 0) {
+                    } else if (bats[i].y > 50-bats[i].HEIGHT && bats[i].dy > 0) {
                         bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     } else if (bats[i].y < 0 && bats[i].dy < 0) {
@@ -512,17 +510,17 @@ public class Board extends JPanel implements ActionListener {
                     }
                     break;
                 case 3:
-                    if (((bats[i].x < 0 && bats[i].dx < 0) || (bats[i].x > 40 && bats[i].dx > 0)) && ((bats[i].y > 275 && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
+                    if (((bats[i].x < 0 && bats[i].dx < 0) || (bats[i].x > 50-bats[i].HEIGHT && bats[i].dx > 0)) && ((bats[i].y > B_HEIGHT-50-bats[i].WIDTH && bats[i].dy > 0) || (bats[i].y < 50 && bats[i].dy < 0))) {
                         bats[i].setPosition(bats[i].x, bats[i].y);
                         continue;
                     }
                     if (bats[i].x < 0 && bats[i].dx < 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].x > 40 && bats[i].dx > 0) {
+                    } else if (bats[i].x > 50-bats[i].HEIGHT && bats[i].dx > 0) {
                         bats[i].setPosition(bats[i].x, bats[i].y + bats[i].dy);
                         continue;
-                    } else if (bats[i].y > 275 && bats[i].dy > 0) {
+                    } else if (bats[i].y > B_HEIGHT-50-bats[i].WIDTH && bats[i].dy > 0) {
                         bats[i].setPosition(bats[i].x + bats[i].dx, bats[i].y);
                         continue;
                     } else if (bats[i].y < 50 && bats[i].dy < 0) {
@@ -549,7 +547,7 @@ public class Board extends JPanel implements ActionListener {
             }
             ball.x=0;
         }
-        else if(ball.x >=380){
+        else if(ball.x >=400-ball.WIDTH){
             if(ball.y<350 && ball.y>50){
                 lives[1]--;
                 ball.dx=-ball.dx;
@@ -559,9 +557,9 @@ public class Board extends JPanel implements ActionListener {
                 ball.dx=-ball.dx;
                 collision=-5;
             }
-            ball.x=380;
+            ball.x=400-ball.WIDTH;
         }
-        else if(ball.y >=380 ){
+        else if(ball.y >=400-ball.HEIGHT ){
             if(ball.x<350 && ball.x>50){
                 lives[0]--;
                 ball.dy=-ball.dy;
@@ -571,7 +569,7 @@ public class Board extends JPanel implements ActionListener {
                 ball.dy=-ball.dy;
                 collision=-5;
             }
-            ball.y=380;
+            ball.y=400-ball.HEIGHT;
         }
         else if(ball.y <=0 ){
             if(ball.x<350 && ball.x>50){
