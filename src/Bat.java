@@ -10,6 +10,8 @@ public class Bat {
     int dy =0;
     int x;
     int y;
+    int WIDTH=75;
+    int HEIGHT=10;
     Rectangle bounds;
     // bat is 75 px wide, 10 px tall
     //could also possibly make sprite/ implement with rectangle: sprite seems better
