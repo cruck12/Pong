@@ -108,6 +108,8 @@ public class Board extends JPanel implements ActionListener {
         g2dText.rotate(Math.PI / 2);
         if(lives[3]>0)
             g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
+        g2dText.rotate(-Math.PI / 2);
+        g2dText.drawString("SPEED " + Math.sqrt(ball.dx*ball.dx+ball.dy*ball.dy), 200, 200);
 
         Toolkit.getDefaultToolkit().sync();
 
@@ -643,6 +645,11 @@ public class Board extends JPanel implements ActionListener {
                 }
                     break;
             }
+        }
+        float speed=(float)Math.sqrt(ball.dx*ball.dx+ball.dy*ball.dy);
+        if(speed>9){
+            ball.dx=ball.dx*9/speed;
+            ball.dy=ball.dy*9/speed;
         }
 
     }
