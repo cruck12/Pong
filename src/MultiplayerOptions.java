@@ -28,7 +28,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     Timer timer;
     private final int DELAY = 18;
     int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
-
+    int[] ball = {200,200};
 
     /**
      * Creates new form MultiplayerOptions
@@ -210,10 +210,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
+                int[] pos_ball = new int[2];
                 pos = board.getPlayerBatPosition(playerNumber);
+                pos_ball = board.getBallPosition();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
-                tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
+                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+pos_ball[0]+" "+pos_ball[1]);
                 board.Update(false,null,bats);
             }
         };
@@ -330,10 +332,17 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 int[] pos = new int[2];
+                                int[] pos_ball = new int[2];
+                                pos_ball = board.getBallPosition();
                                 pos = board.getPlayerBatPosition(playerNumber);
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
-                                tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
+                                if(own_ip.equals(host_ip)) {
+                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+pos_ball[0]+" "+pos_ball[1]);
+                                }
+                                else {
+                                    tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
+                                }
                                 board.Update(false,null,bats);
                             }
                         };
@@ -345,35 +354,60 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                     {
                             switch (Integer.parseInt(ip_array[3])) {
                                 case 0: {
-                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
-                                        bats[0][0] = Integer.parseInt(ip_array[1]);
-                                        bats[0][1] = Integer.parseInt(ip_array[2]);
-                                    }
+                                    bats[0][0] = Integer.parseInt(ip_array[1]);
+                                    bats[0][1] = Integer.parseInt(ip_array[2]);
                                     break;
                                 }
                                 case 1: {
-                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
-                                        bats[1][0] = Integer.parseInt(ip_array[1]);
-                                        bats[1][1] = Integer.parseInt(ip_array[2]);
-                                    }
+                                    bats[1][0] = Integer.parseInt(ip_array[1]);
+                                    bats[1][1] = Integer.parseInt(ip_array[2]);
                                     break;
                                 }
                                 case 2: {
-                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
-                                        bats[2][0] = Integer.parseInt(ip_array[1]);
-                                        bats[2][1] = Integer.parseInt(ip_array[2]);
-                                    }
+                                    bats[2][0] = Integer.parseInt(ip_array[1]);
+                                    bats[2][1] = Integer.parseInt(ip_array[2]);
                                     break;
                                 }
                                 case 3: {
-                                    if (Integer.parseInt(ip_array[3]) != playerNumber) {
-                                        bats[3][0] = Integer.parseInt(ip_array[1]);
-                                        bats[3][1] = Integer.parseInt(ip_array[2]);
-                                    }
+                                    bats[3][0] = Integer.parseInt(ip_array[1]);
+                                    bats[3][1] = Integer.parseInt(ip_array[2]);
                                     break;
                                 }
                             }
                         }
+                    else if(ip_array[0].equals("MoveB"))
+                    {
+                        switch (Integer.parseInt(ip_array[3])) {
+                            case 0: {
+                                bats[0][0] = Integer.parseInt(ip_array[1]);
+                                bats[0][1] = Integer.parseInt(ip_array[2]);
+                                ball[0]=Integer.parseInt(ip_array[4]);
+                                ball[1]=Integer.parseInt(ip_array[5]);
+                                break;
+                            }
+                            case 1: {
+                                bats[1][0] = Integer.parseInt(ip_array[1]);
+                                bats[1][1] = Integer.parseInt(ip_array[2]);
+                                ball[0]=Integer.parseInt(ip_array[4]);
+                                ball[1]=Integer.parseInt(ip_array[5]);
+                                break;
+                            }
+                            case 2: {
+                                bats[2][0] = Integer.parseInt(ip_array[1]);
+                                bats[2][1] = Integer.parseInt(ip_array[2]);
+                                ball[0]=Integer.parseInt(ip_array[4]);
+                                ball[1]=Integer.parseInt(ip_array[5]);
+                                break;
+                            }
+                            case 3: {
+                                bats[3][0] = Integer.parseInt(ip_array[1]);
+                                bats[3][1] = Integer.parseInt(ip_array[2]);
+                                ball[0]=Integer.parseInt(ip_array[4]);
+                                ball[1]=Integer.parseInt(ip_array[5]);
+                                break;
+                            }
+                        }
+                    }
 
                     else {
                         msg_area.append("Received: " + message + "\n");

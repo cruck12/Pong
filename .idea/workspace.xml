@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6da6633-b895-4130-b4a4-cb4e445e2c57" name="Default" comment="Initial Connection in Multiplayer">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Ball.class" afterPath="$PROJECT_DIR$/out/production/Pong/Ball.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Bat.class" afterPath="$PROJECT_DIR$/out/production/Pong/Bat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Game.class" afterPath="$PROJECT_DIR$/out/production/Pong/Game.class" />
+    <list default="true" id="b6da6633-b895-4130-b4a4-cb4e445e2c57" name="Default" comment="Further Testing multiplayer movement">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Board.class" afterPath="$PROJECT_DIR$/out/production/Pong/Board.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MultiplayerBoard.java" afterPath="$PROJECT_DIR$/src/MultiplayerBoard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MultiplayerOptions.java" afterPath="$PROJECT_DIR$/src/MultiplayerOptions.java" />
     </list>
     <ignored path="Pong.iws" />
@@ -32,7 +31,7 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
+            <state relative-caret-position="555">
               <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -54,8 +53,8 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+            <state relative-caret-position="240">
+              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,8 +65,8 @@
       <file leaf-file-name="MultiplayerBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiplayerBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5400">
-              <caret line="370" column="49" selection-start-line="370" selection-start-column="49" selection-end-line="370" selection-end-column="49" />
+            <state relative-caret-position="19">
+              <caret line="310" column="41" selection-start-line="310" selection-start-column="41" selection-end-line="310" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -76,7 +75,7 @@
       <file leaf-file-name="Bat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
+            <state relative-caret-position="930">
               <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
               <folding />
             </state>
@@ -86,11 +85,11 @@
       <file leaf-file-name="MultiplayerOptions.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="341" column="36" selection-start-line="341" selection-start-column="36" selection-end-line="341" selection-end-column="36" />
+            <state relative-caret-position="529">
+              <caret line="418" column="51" selection-start-line="418" selection-start-column="51" selection-end-line="418" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1122#1185#0" expanded="true" />
+                <element signature="e#1149#1212#0" expanded="true" />
                 <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
               </folding>
             </state>
@@ -164,8 +163,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -218,7 +218,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -674,7 +673,9 @@
       <workItem from="1461597949015" duration="1154000" />
       <workItem from="1461607559712" duration="8481000" />
       <workItem from="1461646164983" duration="2386000" />
-      <workItem from="1461653125596" duration="4058000" />
+      <workItem from="1461653125596" duration="4168000" />
+      <workItem from="1461670549004" duration="295000" />
+      <workItem from="1461676995209" duration="1671000" />
     </task>
     <task id="LOCAL-00001" summary="Added Basic collision detection">
       <created>1461135911001</created>
@@ -753,15 +754,22 @@
       <option name="project" value="LOCAL" />
       <updated>1461656767108</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Further Testing multiplayer movement">
+      <created>1461657722366</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1461657722366</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49019000" />
+    <option name="totallyTimeSpent" value="51095000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="803" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="803" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -770,9 +778,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32489452" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32348806" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32489452" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32398316" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32348806" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32398316" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24821173" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -811,7 +819,8 @@
     <MESSAGE value="Initial Connection in Multiplayer" />
     <MESSAGE value="Bug fixes in connectivity" />
     <MESSAGE value="Test implementation of multiplayer movement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test implementation of multiplayer movement" />
+    <MESSAGE value="Further Testing multiplayer movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further Testing multiplayer movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -866,7 +875,7 @@
           <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1185#0" expanded="true" />
+            <element signature="e#1149#1212#0" expanded="true" />
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
           </folding>
         </state>
@@ -920,7 +929,7 @@
           <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1185#0" expanded="true" />
+            <element signature="e#1149#1212#0" expanded="true" />
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
           </folding>
         </state>
@@ -974,7 +983,7 @@
           <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1185#0" expanded="true" />
+            <element signature="e#1149#1212#0" expanded="true" />
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
           </folding>
         </state>
@@ -1019,7 +1028,7 @@
           <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1185#0" expanded="true" />
+            <element signature="e#1149#1212#0" expanded="true" />
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
           </folding>
         </state>
@@ -1096,9 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1156,9 +1162,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
           <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1186,7 +1189,7 @@
     <entry file="file://$PROJECT_DIR$/src/MultiplayerLobby.java" />
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
+        <state relative-caret-position="555">
           <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1196,8 +1199,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        <state relative-caret-position="240">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1206,7 +1209,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
+        <state relative-caret-position="930">
           <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
           <folding />
         </state>
@@ -1214,19 +1217,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiplayerBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5400">
-          <caret line="370" column="49" selection-start-line="370" selection-start-column="49" selection-end-line="370" selection-end-column="49" />
+        <state relative-caret-position="19">
+          <caret line="310" column="41" selection-start-line="310" selection-start-column="41" selection-end-line="310" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="341" column="36" selection-start-line="341" selection-start-column="36" selection-end-line="341" selection-end-column="36" />
+        <state relative-caret-position="529">
+          <caret line="418" column="51" selection-start-line="418" selection-start-column="51" selection-end-line="418" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1185#0" expanded="true" />
+            <element signature="e#1149#1212#0" expanded="true" />
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
           </folding>
         </state>
