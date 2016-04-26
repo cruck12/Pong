@@ -216,7 +216,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
                 tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+pos_ball[0]+" "+pos_ball[1]);
-                board.Update(false,null,bats);
+                board.Update(false,ball,bats);
             }
         };
         timer=new Timer(DELAY,taskPerformer);
@@ -343,7 +343,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
                                 }
-                                board.Update(false,null,bats);
+                                board.Update(false,ball,bats);
                             }
                         };
                         timer=new Timer(DELAY,taskPerformer);
