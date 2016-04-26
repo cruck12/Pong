@@ -302,6 +302,13 @@ public class MultiplayerBoard extends JPanel  {
         }
 
     }
+    private void moveItems(int[] ballpos, int[][] bat, float[] ballv) {
+        setBallPosition(ballpos);
+        setBallVelocity(ballv);
+        for(int i=0;i<4;i++){
+            bats[i].setPosition(bat[i][0],bat[i][1]);
+        }
+    }
     private void moveItems(int[] ballpos, int[][] bat) {
         setBallPosition(ballpos);
         for(int i=0;i<4;i++){
@@ -342,6 +349,22 @@ public class MultiplayerBoard extends JPanel  {
 
     }
 
+    public void Update(boolean collision,int[] ballPos,int[][] bat, float[] ballv){
+        int count=0;
+        for (boolean x:inGame)
+            if(x)
+                count++;
+        if(count>1){
+            checkCollision();
+            checkIngame();
+            if(collision)
+                moveItems(ballPos,bat,ballv);
+            else
+                moveItems(bat);
+            move();
+        }
+        repaint();
+    }
     public void Update(boolean collision,int[] ballPos,int[][] bat){
         int count=0;
         for (boolean x:inGame)
@@ -367,12 +390,15 @@ public class MultiplayerBoard extends JPanel  {
         int[] tmp = {ball.x,ball.y};
         return tmp;
     }
+    public float[] getBallVelocity(){
+        float[] tmp = {ball.dx,ball.dy};
+        return tmp;
+    }
 
     public void setBallVelocity(float[] vel){
         ball.setVelocity(vel[0],vel[1]);
     }
-    public void setBallPosition(int[] pos)
-    {
+    public void setBallPosition(int[] pos){
         ball.setPosition(pos[0],pos[1]);
     }
 }

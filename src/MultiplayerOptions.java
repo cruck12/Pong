@@ -7,6 +7,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Arc2D;
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -29,6 +30,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     private final int DELAY = 18;
     int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
     int[] ball = {200,200};
+    float[] ballv = {2,-3};
 
     /**
      * Creates new form MultiplayerOptions
@@ -212,11 +214,11 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 int[] pos = new int[2];
                 pos = board.getPlayerBatPosition(playerNumber);
                 ball = board.getBallPosition();
+                ballv = board.getBallVelocity();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
-                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
+                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1] + " " +ballv[0]+" "+ballv[1]);
                 board.Update(true,ball,bats);
-                ball= board.getBallPosition();
             }
         };
         timer=new Timer(DELAY,taskPerformer);
@@ -337,9 +339,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 if(own_ip.equals(host_ip)) {
-                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
-                                    board.Update(true,ball,bats);
-                                    ball= board.getBallPosition();
+                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]+ballv[0]+" "+ballv[1]);
+                                    board.Update(true,ball,bats,ballv);
                                 }
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
@@ -385,7 +386,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
-                                System.out.println(ball[0]+" "+ball[1]);
+                                ballv[0]= Float.parseFloat(ip_array[6]);
+                                ballv[0]= Float.parseFloat(ip_array[7]);
                                 break;
                             }
                             case 1: {
@@ -393,6 +395,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[1][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
+                                ballv[0]= Float.parseFloat(ip_array[6]);
+                                ballv[0]= Float.parseFloat(ip_array[7]);
                                 break;
                             }
                             case 2: {
@@ -400,6 +404,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[2][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
+                                ballv[0]= Float.parseFloat(ip_array[6]);
+                                ballv[0]= Float.parseFloat(ip_array[7]);
                                 break;
                             }
                             case 3: {
@@ -407,6 +413,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[3][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
+                                ballv[0]= Float.parseFloat(ip_array[6]);
+                                ballv[0]= Float.parseFloat(ip_array[7]);
                                 break;
                             }
                         }
