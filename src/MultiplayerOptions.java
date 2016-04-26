@@ -334,18 +334,20 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 int[] pos = new int[2];
-                                ball = board.getBallPosition();
-                                ballv= board.getBallVelocity();
+//                                ball = board.getBallPosition();
+//                                ballv= board.getBallVelocity();
                                 pos = board.getPlayerBatPosition(playerNumber);
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 if(own_ip.equals(host_ip)) {
+                                    ball=board.getBallPosition();
+                                    ballv = board.getBallVelocity();
                                     tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]+" "+ ballv[0]+" "+ ballv[1]);
                                     board.Update(true,ball,bats);
                                 }
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
-                                    board.Update(true,ball,bats,ballv);
+                                    board.Update(true,ball,bats);
                                 }
 
                             }
