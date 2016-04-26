@@ -16,7 +16,7 @@ public class Board extends JPanel implements ActionListener {
 
     private boolean inGame[] = {true,true,true,true};
     private int lives[];
-    private int collision=-1;
+    private int collision=-5;
     private int ai=0;
 
     private Timer timer;
@@ -539,99 +539,106 @@ public class Board extends JPanel implements ActionListener {
             if(ball.y<350 && ball.y>50){
                 lives[3]--;
                 ball.dx=-ball.dx;
+                collision=-4;
             }
             else{
                 ball.dx=-ball.dx;
+                collision=-5;
             }
             ball.x=0;
-            collision=-1;
         }
         else if(ball.x >=380){
             if(ball.y<350 && ball.y>50){
                 lives[1]--;
                 ball.dx=-ball.dx;
+                collision=-2;
             }
             else{
                 ball.dx=-ball.dx;
+                collision=-5;
             }
             ball.x=380;
-            collision=-1;
         }
         else if(ball.y >=380 ){
             if(ball.x<350 && ball.x>50){
                 lives[0]--;
                 ball.dy=-ball.dy;
+                collision=-1;
             }
             else{
                 ball.dy=-ball.dy;
+                collision=-5;
             }
             ball.y=380;
-            collision=-1;
         }
         else if(ball.y <=0 ){
             if(ball.x<350 && ball.x>50){
                 lives[2]--;
                 ball.dy=-ball.dy;
+                collision=-3;
             }
             else{
                 ball.dy=-ball.dy;
+                collision=-5;
             }
             ball.y=0;
-            collision=-1;
         }
         // Collision with the Bat
         for (int i=0; i<4; i++){
             switch (i){
-                case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
-                    collision=0;
-                    Rectangle2D intersection= bats[0].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getWidth()>intersection.getHeight()){
-                        ball.dy=-ball.dy+ (float)(bats[0].dy)/4;
-                        ball.dx+=(float)bats[0].dx /10;
-                        ball.y=ball.y<bats[0].y?bats[0].y-20:bats[0].y+10;
-                    }
-                    else{
-                        ball.dx=-ball.dx;
-                    }
-//                   System.out.println (ball.dx +"      "+ ball.dy);
-                }
-                    break;
-                case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
-                    collision = 1;
-                    Rectangle2D intersection= bats[1].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + (float) bats[1].dx / 4;
-                        ball.dy +=(float) bats[1].dy / 10;
-                        ball.x=ball.x<bats[1].x?bats[1].x-20:bats[1].x+10;
-                    }
-                    else{
-                        ball.dy=-ball.dy;
+                case 0:if(collision!=-1) {
+                    if (bats[0].getBounds().intersects(ball.getBounds())) {
+                        collision = 0;
+                        Rectangle2D intersection = bats[0].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getWidth() > intersection.getHeight()) {
+                            ball.dy = -ball.dy + (float) (bats[0].dy) / 4;
+                            ball.dx += (float) bats[0].dx / 10;
+                            ball.y = ball.y < bats[0].y ? bats[0].y - 20 : bats[0].y + 10;
+                        } else {
+                            ball.dx = -ball.dx;
+                        }
                     }
                 }
                     break;
-                case 2: if(bats[2].getBounds().intersects(ball.getBounds())){
-                    collision = 2;
-                    Rectangle2D intersection= bats[2].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getWidth()>intersection.getHeight()) {
-                        ball.dy = -ball.dy + (float) bats[2].dy / 4;
-                        ball.dx += (float)bats[2].dx / 10;
-                        ball.y=ball.y>bats[2].y?bats[2].y+10:bats[2].y-20;
-                    }
-                    else{
-                        ball.dx=-ball.dx;
+                case 1:if(collision!=-2) {
+                    if (bats[1].getBounds().intersects(ball.getBounds())) {
+                        collision = 1;
+                        Rectangle2D intersection = bats[1].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getHeight() > intersection.getWidth()) {
+                            ball.dx = -ball.dx + (float) bats[1].dx / 4;
+                            ball.dy += (float) bats[1].dy / 10;
+                            ball.x = ball.x < bats[1].x ? bats[1].x - 20 : bats[1].x + 10;
+                        } else {
+                            ball.dy = -ball.dy;
+                        }
                     }
                 }
                     break;
-                case 3: if(bats[3].getBounds().intersects(ball.getBounds())){
-                    collision = 3;
-                    Rectangle2D intersection= bats[3].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + (float) bats[3].dx / 4;
-                        ball.dy += (float) bats[3].dy / 10;
-                        ball.x=ball.x>bats[3].x?bats[3].x+10:bats[3].x-20;
+                case 2:if(collision!=-3) {
+                    if (bats[2].getBounds().intersects(ball.getBounds())) {
+                        collision = 2;
+                        Rectangle2D intersection = bats[2].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getWidth() > intersection.getHeight()) {
+                            ball.dy = -ball.dy + (float) bats[2].dy / 4;
+                            ball.dx += (float) bats[2].dx / 10;
+                            ball.y = ball.y > bats[2].y ? bats[2].y + 10 : bats[2].y - 20;
+                        } else {
+                            ball.dx = -ball.dx;
+                        }
                     }
-                    else{
-                        ball.dy=-ball.dy;
+                }
+                    break;
+                case 3:if(collision!=-4) {
+                    if (bats[3].getBounds().intersects(ball.getBounds())) {
+                        collision = 3;
+                        Rectangle2D intersection = bats[3].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getHeight() > intersection.getWidth()) {
+                            ball.dx = -ball.dx + (float) bats[3].dx / 4;
+                            ball.dy += (float) bats[3].dy / 10;
+                            ball.x = ball.x > bats[3].x ? bats[3].x + 10 : bats[3].x - 20;
+                        } else {
+                            ball.dy = -ball.dy;
+                        }
                     }
                 }
                     break;
