@@ -217,7 +217,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 ballv = board.getBallVelocity();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
-                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1] + " " +ballv[0]+" "+ballv[1]);
+                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1] );
                 board.Update(true,ball,bats);
             }
         };
@@ -339,7 +339,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 if(own_ip.equals(host_ip)) {
-                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]+ballv[0]+" "+ballv[1]);
+                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
                                     board.Update(true,ball,bats,ballv);
                                 }
                                 else {
