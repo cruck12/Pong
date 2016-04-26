@@ -139,17 +139,20 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         try {
+            users = new ArrayList();
             if (!IPtext.getText().equals("")) {
                 msg_area.append("You have set the host IP to " + IPtext.getText() + "\n");
                 host_ip = IPtext.getText();
                 users.add(host_ip);
                 own_ip = InetAddress.getLocalHost().toString();
                 own_ip = own_ip.substring(own_ip.lastIndexOf('/')+1);
-                Socket user = new Socket(host_ip, 2222);
-                msg_area.append("Established connection to host" + "\n");
-                PrintWriter writer = new PrintWriter(user.getOutputStream());
+                System.out.println(own_ip);
                 Thread starter = new Thread(new ServerStart());
                 starter.start();
+                msg_area.append("Established connection to host" + "\n");
+                Socket user = new Socket(host_ip, 2222);
+
+                PrintWriter writer = new PrintWriter(user.getOutputStream());
                 Thread listener = new Thread(new ClientHandler(user, writer));
                 listener.start();
             } else {
@@ -157,6 +160,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             msg_area.append("Initial connectivity problems" + "\n");
+            e.printStackTrace();
         }
     }
 
@@ -241,10 +245,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                     }
                     msg_area.append("Got a connection from "
                             + clientSock.getInetAddress().getHostAddress() + "\n");
-                    tellEveryone ("Player"+" "+player+" "+clientSock.getInetAddress().getHostAddress());
-                    msg_area.append("Assigned" +clientSock.getInetAddress().getHostAddress()
-                            + " "+ player + " "+"player" );
-                    player = player + 1;
+                    if(own_ip.equals(host_ip)) {
+                        tellEveryone("Player" + " " + player + " " + clientSock.getInetAddress().getHostAddress());
+                        msg_area.append("Assigned" + clientSock.getInetAddress().getHostAddress()
+                                + " " + player + " " + "player");
+                        player = player + 1;
+                    }
                     if (own_ip.equals(host_ip)) {
                         Iterator it = users.iterator();
                         while (it.hasNext()) {
@@ -259,6 +265,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 }
             } catch (Exception ex) {
                 msg_area.append("Error making a connection. \n");
+                ex.printStackTrace();
             }
         }
     }
@@ -304,6 +311,21 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                     else if (ip_array[0].equals("START"))
                     {
                         board = new MultiplayerBoard(playerNumber);
+                        JFrame frame = new JFrame("Game");
+                        frame.setContentPane(board);
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setSize(400,400);
+                        frame.setResizable(false);
+                        frame.pack();
+                        frame.setVisible(true);
+
+                        ActionListener taskPerformer = new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                board.Update();
+                            }
+                        };
+                        timer=new Timer(DELAY,taskPerformer);
+                        timer.start();
                     }
                     else {
                         msg_area.append("Received: " + message + "\n");
