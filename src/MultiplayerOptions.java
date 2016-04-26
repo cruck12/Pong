@@ -336,30 +336,40 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
                     else if(ip_array[0].equals("Move"))
                     {
+
                         switch (Integer.parseInt(ip_array[3])) {
 
                             case 0 :
                             {
-                                bats[0][0] = Integer.parseInt(ip_array[1]);
-                                bats[0][1] = Integer.parseInt(ip_array[2]);
+                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
+                                    bats[0][0] = Integer.parseInt(ip_array[1]);
+                                    bats[0][1] = Integer.parseInt(ip_array[2]);
+                                }
                                 break;
                             }
                             case 1 :
                             {
-                                bats[1][0] = Integer.parseInt(ip_array[1]);
-                                bats[1][1] = Integer.parseInt(ip_array[2]);
+                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
+                                    bats[1][0] = Integer.parseInt(ip_array[1]);
+                                    bats[1][1] = Integer.parseInt(ip_array[2]);
+                                }
                                 break;
                             }
                             case 2 :
                             {
-                                bats[2][0] = Integer.parseInt(ip_array[1]);
-                                bats[2][1] = Integer.parseInt(ip_array[2]);
+                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
+                                    bats[2][0] = Integer.parseInt(ip_array[1]);
+                                    bats[2][1] = Integer.parseInt(ip_array[2]);
+                                }
                                 break;
                             }
                             case 3 :
                             {
-                                bats[3][0] = Integer.parseInt(ip_array[1]);
-                                bats[3][1] = Integer.parseInt(ip_array[2]);
+                                if(Integer.parseInt(ip_array[3])!=playerNumber) {
+                                    bats[3][0] = Integer.parseInt(ip_array[1]);
+                                    bats[3][1] = Integer.parseInt(ip_array[2]);
+                                }
+                                break;
                             }
                         }
                     }
