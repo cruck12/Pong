@@ -10,6 +10,7 @@ public class Ball {
     float dy =0;
     int x;
     int y;
+    int last=-1;
     final int WIDTH=20;
     final int HEIGHT=20;
     Rectangle bounds;

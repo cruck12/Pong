@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6da6633-b895-4130-b4a4-cb4e445e2c57" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Bat.class" afterPath="$PROJECT_DIR$/out/production/Pong/Bat.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Board.class" afterPath="$PROJECT_DIR$/out/production/Pong/Board.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pong/Game.class" afterPath="$PROJECT_DIR$/out/production/Pong/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ball.java" afterPath="$PROJECT_DIR$/src/Ball.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Board.java" afterPath="$PROJECT_DIR$/src/Board.java" />
     </list>
     <ignored path="Pong.iws" />
@@ -32,7 +31,7 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="1054">
               <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -43,16 +42,19 @@
       </file>
       <file leaf-file-name="Game.form" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Ball.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+            <state relative-caret-position="187">
+              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -61,8 +63,8 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1168">
-              <caret line="667" column="26" selection-start-line="667" selection-start-column="26" selection-end-line="667" selection-end-column="26" />
+            <state relative-caret-position="8347">
+              <caret line="497" column="35" selection-start-line="497" selection-start-column="35" selection-end-line="497" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,7 +95,7 @@
       <file leaf-file-name="MultiplayerOptions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1258">
+            <state relative-caret-position="4743">
               <caret line="383" column="56" selection-start-line="383" selection-start-column="56" selection-end-line="383" selection-end-column="56" />
               <folding>
                 <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
@@ -138,9 +140,9 @@
         <option value="$PROJECT_DIR$/src/MultiplayerUI.form" />
         <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Game.form" />
-        <option value="$PROJECT_DIR$/src/Ball.java" />
         <option value="$PROJECT_DIR$/src/MultiplayerBoard.java" />
         <option value="$PROJECT_DIR$/src/MultiplayerOptions.java" />
+        <option value="$PROJECT_DIR$/src/Ball.java" />
         <option value="$PROJECT_DIR$/src/Board.java" />
       </list>
     </option>
@@ -183,6 +185,7 @@
     <panes>
       <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -217,7 +220,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -673,7 +675,9 @@
       <workItem from="1461335830726" duration="15509000" />
       <workItem from="1461478277058" duration="1453000" />
       <workItem from="1461502557877" duration="34121000" />
-      <workItem from="1461695619540" duration="3720000" />
+      <workItem from="1461695619540" duration="6682000" />
+      <workItem from="1461710978331" duration="10000" />
+      <workItem from="1461713687727" duration="3613000" />
     </task>
     <task id="LOCAL-00001" summary="Added Basic collision detection">
       <created>1461135911001</created>
@@ -794,11 +798,18 @@
       <option name="project" value="LOCAL" />
       <updated>1461696099454</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fixed corner case collision bug">
+      <created>1461699769791</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1461699769791</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73783000" />
+    <option name="totallyTimeSpent" value="80368000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -858,7 +869,8 @@
     <MESSAGE value="Test2: Fixing Network Latency" />
     <MESSAGE value="Test3: Only server calculates collisions etc" />
     <MESSAGE value="Added Modularity for variable item sizes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Modularity for variable item sizes" />
+    <MESSAGE value="Fixed corner case collision bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed corner case collision bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -871,6 +883,150 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.form">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MultiplayerBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3961">
+          <caret line="239" column="25" selection-start-line="239" selection-start-column="25" selection-end-line="239" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#13218#13219#0" expanded="true" />
+            <element signature="e#13269#13270#0" expanded="true" />
+            <element signature="e#13332#13333#0" expanded="true" />
+            <element signature="e#13382#13383#0" expanded="true" />
+            <element signature="e#14649#14650#0" expanded="true" />
+            <element signature="e#14696#14697#0" expanded="true" />
+            <element signature="e#14740#14741#0" expanded="true" />
+            <element signature="e#14787#14788#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4743">
+          <caret line="383" column="56" selection-start-line="383" selection-start-column="56" selection-end-line="383" selection-end-column="56" />
+          <folding>
+            <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.form">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MultiplayerBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3961">
+          <caret line="239" column="25" selection-start-line="239" selection-start-column="25" selection-end-line="239" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#13218#13219#0" expanded="true" />
+            <element signature="e#13269#13270#0" expanded="true" />
+            <element signature="e#13332#13333#0" expanded="true" />
+            <element signature="e#13382#13383#0" expanded="true" />
+            <element signature="e#14649#14650#0" expanded="true" />
+            <element signature="e#14696#14697#0" expanded="true" />
+            <element signature="e#14740#14741#0" expanded="true" />
+            <element signature="e#14787#14788#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4743">
+          <caret line="383" column="56" selection-start-line="383" selection-start-column="56" selection-end-line="383" selection-end-column="56" />
+          <folding>
+            <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
@@ -1014,14 +1170,20 @@
     <entry file="file://$PROJECT_DIR$/src/MultiplayerUI.form" />
     <entry file="file://$PROJECT_DIR$/src/MultiplayerUI.java" />
     <entry file="file://$PROJECT_DIR$/src/Game.form">
-      <provider selected="true" editor-type-id="ui-designer">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="ui-designer">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiplayerLobby.java" />
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="1054">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1057,7 +1219,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultiplayerOptions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1258">
+        <state relative-caret-position="4743">
           <caret line="383" column="56" selection-start-line="383" selection-start-column="56" selection-end-line="383" selection-end-column="56" />
           <folding>
             <element signature="method#initComponents#0;class#MultiplayerOptions#0" expanded="false" />
@@ -1070,18 +1232,33 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Board.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/batHorizontal.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bat.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state relative-caret-position="187">
+          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1168">
-          <caret line="667" column="26" selection-start-line="667" selection-start-column="26" selection-end-line="667" selection-end-column="26" />
+        <state relative-caret-position="8347">
+          <caret line="497" column="35" selection-start-line="497" selection-start-column="35" selection-end-line="497" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
