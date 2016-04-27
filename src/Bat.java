@@ -10,6 +10,7 @@ public class Bat {
     int dy =0;
     int x;
     int y;
+    boolean invulnerable=false;
     int WIDTH=75;
     int HEIGHT=10;
     Rectangle bounds;
