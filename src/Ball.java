@@ -8,8 +8,8 @@ import java.util.Random;
 public class Ball {
     float dx =0;
     float dy =0;
-    int x;
-    int y;
+    float x;
+    float y;
     int last=0;
     final int WIDTH=20;
     final int HEIGHT=20;
@@ -18,13 +18,13 @@ public class Ball {
     public Ball(){
         ImageIcon imgBall = new ImageIcon("ball.png");
         image = imgBall.getImage();
-        bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+        bounds = new Rectangle((int)x,(int)y,image.getWidth(null),image.getHeight(null));
     }
 
-    public void setPosition(int x, int y){
+    public void setPosition(float x, float y){
         this.x=x;
         this.y=y;
-        bounds.setLocation(x,y);
+        bounds.setLocation((int)x,(int)y);
     }
 
     public void setVelocity(){

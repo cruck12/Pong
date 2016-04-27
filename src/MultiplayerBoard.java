@@ -82,7 +82,7 @@ public class MultiplayerBoard extends JPanel  {
         rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHints(rh);
 
-        g2d.drawImage(ball.image, ball.x, ball.y, this);
+        g2d.drawImage(ball.image, (int)ball.x, (int)ball.y, this);
 
         for (int i = 0; i < 4; i++) {
             if (inGame[i])
@@ -388,7 +388,7 @@ public class MultiplayerBoard extends JPanel  {
     }
 
     public int[] getBallPosition(){
-        int[] tmp = {ball.x,ball.y};
+        int[] tmp = {(int)ball.x,(int)ball.y};
         return tmp;
     }
     public float[] getBallVelocity(){

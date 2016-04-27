@@ -75,7 +75,7 @@ public class Board extends JPanel implements ActionListener {
         bats= new Bat[4];
         ball = new Ball();
         ball.setPosition(B_WIDTH/2,B_HEIGHT/2);
-        ball.setVelocity();
+        ball.setVelocity(2,-2);
         for(int i=0;i<4;i++){
             lives[i]=5;
             switch (i){
@@ -112,7 +112,8 @@ public class Board extends JPanel implements ActionListener {
         rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHints(rh);
 
-        g2d.drawImage(ball.image, ball.x, ball.y, this);
+        g2d.drawImage(ball.image, Math.round(ball.x), Math.round(ball.y), this);
+        System.out.println(Math.round(ball.x)+" "+Math.round(ball.y) );
 
         for (int i = 0; i < 4; i++) {
             if (inGame[i])
@@ -174,7 +175,7 @@ public class Board extends JPanel implements ActionListener {
                 else if (bats[i].x - ball.WIDTH/2 > ball.x)
                     bats[i].dx = -5;
                 else
-                    bats[i].dx = (ball.x - bats[i].x - (bats[i].WIDTH-ball.WIDTH)/2)*5/ bats[i].WIDTH;
+                    bats[i].dx = ((int)ball.x - bats[i].x - (bats[i].WIDTH-ball.WIDTH)/2)*5/ bats[i].WIDTH;
                 break;
             case 1:
             case 3:
@@ -183,7 +184,7 @@ public class Board extends JPanel implements ActionListener {
                 else if (bats[i].y - ball.HEIGHT/2 > ball.y)
                     bats[i].dy = -5;
                 else
-                    bats[i].dy = (ball.y - bats[i].y - (bats[i].WIDTH-ball.HEIGHT)/2)*5 / bats[i].WIDTH;
+                    bats[i].dy = ((int)ball.y - bats[i].y - (bats[i].WIDTH-ball.HEIGHT)/2)*5 / bats[i].WIDTH;
                 break;
         }
     }
@@ -193,7 +194,7 @@ public class Board extends JPanel implements ActionListener {
         switch(i){
             case 0:
                 if(ball.dy<0) {
-                    xf = ball.x + (int) ((ball.y + B_HEIGHT-ball.HEIGHT/2-5-bats[0].HEIGHT) * ball.dx /(- ball.dy));
+                    xf = (int)ball.x + (int) ((ball.y + B_HEIGHT-ball.HEIGHT/2-5-bats[0].HEIGHT) * ball.dx /(- ball.dy));
                     if((xf/B_WIDTH)%2==0)
                         xf=Math.abs(xf%B_WIDTH);
                     else
@@ -206,7 +207,7 @@ public class Board extends JPanel implements ActionListener {
                         bats[0].dx = (xf - bats[0].x - (bats[0].WIDTH-ball.WIDTH)/2)*5 / bats[0].WIDTH;
                 }
                 else if(ball.dy>0){
-                    xf = ball.x + (int) ((B_HEIGHT-ball.HEIGHT/2-5-bats[0].HEIGHT - ball.y) * ball.dx / ball.dy);
+                    xf = (int)ball.x + (int) ((B_HEIGHT-ball.HEIGHT/2-5-bats[0].HEIGHT - ball.y) * ball.dx / ball.dy);
                     if((xf/B_WIDTH)%2==0)
                         xf=Math.abs(xf%B_WIDTH);
                     else
@@ -221,7 +222,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 1:
                 if(ball.dx<0) {
-                    xf = ball.y + (int) ((ball.x + B_WIDTH-ball.WIDTH/2-5-bats[1].HEIGHT) * ball.dy /(- ball.dx));
+                    xf = (int)ball.y + (int) ((ball.x + B_WIDTH-ball.WIDTH/2-5-bats[1].HEIGHT) * ball.dy /(- ball.dx));
                     if((xf/B_HEIGHT)%2==0)
                         xf=Math.abs(xf%B_HEIGHT);
                     else
@@ -234,7 +235,7 @@ public class Board extends JPanel implements ActionListener {
                         bats[1].dy = (xf - bats[1].y - (bats[1].WIDTH-ball.HEIGHT)/2)*5 / bats[1].WIDTH;
                 }
                 else if(ball.dx>0){
-                    xf = ball.y + (int) ((B_WIDTH-ball.WIDTH/2-5-bats[1].HEIGHT - ball.x) * ball.dy / ball.dx);
+                    xf = (int)ball.y + (int) ((B_WIDTH-ball.WIDTH/2-5-bats[1].HEIGHT - ball.x) * ball.dy / ball.dx);
                     if((xf/B_HEIGHT)%2==0)
                         xf=Math.abs(xf%B_HEIGHT);
                     else
@@ -249,7 +250,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 2:
                 if(ball.dy<0) {
-                    xf = ball.x + (int) ((ball.y-5-bats[2].HEIGHT) * ball.dx /(- ball.dy));
+                    xf = (int)ball.x + (int) ((ball.y-5-bats[2].HEIGHT) * ball.dx /(- ball.dy));
                     if((xf/B_WIDTH)%2==0)
                         xf=Math.abs(xf%B_WIDTH);
                     else
@@ -262,7 +263,7 @@ public class Board extends JPanel implements ActionListener {
                         bats[2].dx = (xf - bats[2].x - (bats[2].WIDTH-ball.WIDTH)/2)*5 / bats[2].WIDTH;
                 }
                 else if(ball.dy>0){
-                    xf = ball.x + (int) ((2*B_HEIGHT-5-bats[2].HEIGHT-ball.HEIGHT- ball.y) * ball.dx / ball.dy);
+                    xf = (int)ball.x + (int) ((2*B_HEIGHT-5-bats[2].HEIGHT-ball.HEIGHT- ball.y) * ball.dx / ball.dy);
                     if((xf/B_WIDTH)%2==0)
                         xf=Math.abs(xf%B_WIDTH);
                     else
@@ -277,7 +278,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 3:
                 if(ball.dx<0) {
-                    xf = ball.y + (int) ((ball.x-5-bats[3].HEIGHT) * ball.dy /(- ball.dx));
+                    xf = (int)ball.y + (int) ((ball.x-5-bats[3].HEIGHT) * ball.dy /(- ball.dx));
                     if((xf/B_HEIGHT)%2==0)
                         xf=Math.abs(xf%B_HEIGHT);
                     else
@@ -290,7 +291,7 @@ public class Board extends JPanel implements ActionListener {
                         bats[3].dy = (xf - bats[3].y - (bats[1].WIDTH-ball.HEIGHT)/2)*5 / bats[3].WIDTH;
                 }
                 else if(ball.dx>0){
-                    xf = ball.y + (int) ((2*B_WIDTH-5-bats[3].HEIGHT-ball.WIDTH/2 - ball.x) * ball.dy / ball.dx);
+                    xf = (int)ball.y + (int) ((2*B_WIDTH-5-bats[3].HEIGHT-ball.WIDTH/2 - ball.x) * ball.dy / ball.dx);
                     if((xf/B_HEIGHT)%2==0)
                         xf=Math.abs(xf%B_HEIGHT);
                     else
@@ -311,7 +312,7 @@ public class Board extends JPanel implements ActionListener {
         switch(i){
             case 0:
                 if(ball.x>30&&ball.x<350&&ball.y>350-ball.HEIGHT){
-                    int temp=ball.x+(ball.WIDTH-bats[0].WIDTH)/2-bats[0].x;
+                    int temp=(int)ball.x+(ball.WIDTH-bats[0].WIDTH)/2-bats[0].x;
                     if(temp==0)
                         bats[0].dy=-2;
                     else {
@@ -333,7 +334,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 1:
                 if(ball.x>350-ball.WIDTH&&ball.y<350&&ball.y>50-ball.HEIGHT){
-                    int temp=ball.x+(ball.WIDTH-bats[1].HEIGHT)/2-bats[1].x;
+                    int temp=(int)ball.x+(ball.WIDTH-bats[1].HEIGHT)/2-bats[1].x;
                     if(temp==0)
                         bats[1].dx=-2;
                     else {
@@ -355,7 +356,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 2:
                 if(ball.x>50-ball.WIDTH&&ball.x<350&&ball.y<50){
-                    int temp=ball.x+(ball.WIDTH-bats[2].WIDTH)/2-bats[2].x;
+                    int temp=(int)ball.x+(ball.WIDTH-bats[2].WIDTH)/2-bats[2].x;
                     if(temp==0)
                         bats[2].dy=2;
                     else {
@@ -377,7 +378,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
             case 3:
                 if(ball.x<50&&ball.y<350&&ball.y>50-ball.WIDTH){
-                    int temp=ball.x+(ball.WIDTH-bats[3].HEIGHT)/2-bats[3].x;
+                    int temp=(int)ball.x+(ball.WIDTH-bats[3].HEIGHT)/2-bats[3].x;
                     if(temp==0)
                         bats[3].dx=2;
                     else {
@@ -479,8 +480,8 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void move(double delta) {
-        int x =(int)Math.floor(ball.x + ((ball.dx)*delta));
-        int y =(int) Math.floor(ball.y + (ball.dy)*delta);
+        float x =(float)(ball.x + ((ball.dx)*delta));
+        float y =(float)(ball.y + (ball.dy)*delta);
         ball.setPosition(x,y);
         getPowerUp();
 
