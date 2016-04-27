@@ -14,6 +14,11 @@ public class Board extends JPanel implements ActionListener {
     private final int B_WIDTH = 400;
     private final int B_HEIGHT = 400;
     private final int DELAY = 18;
+    private final long OPTIMAL_TIME = 18000000;
+
+    long lastLoopTime;
+    long lastFpsTime;
+    int fps;
 
     private boolean inGame[] = {true,true,true,true};
 
@@ -65,6 +70,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void initGame() {
+        lastLoopTime=System.nanoTime();
         lives= new int[4];
         bats= new Bat[4];
         ball = new Ball();
@@ -472,8 +478,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void move() {
-        ball.setPosition(Math.round(ball.x + ball.dx), Math.round(ball.y + ball.dy));
+    private void move(double delta) {
+        int x =(int)Math.floor(ball.x + ((ball.dx)*delta));
+        int y =(int) Math.floor(ball.y + (ball.dy)*delta);
+        ball.setPosition(x,y);
         getPowerUp();
 
         for (int i = 0; i < 4; i++) {
@@ -746,6 +754,23 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        long now = System.nanoTime();
+        long updateLength= now - lastLoopTime;
+        lastLoopTime=now;
+        // update the frame counter
+        lastFpsTime += updateLength;
+        fps++;
+
+        // update our FPS counter if a second has passed since
+        // we last recorded
+        if (lastFpsTime >= 1000000000)
+        {
+            System.out.println("(FPS: "+fps+")");
+            lastFpsTime = 0;
+            fps = 0;
+        }
+
+        double delta = updateLength / ((double)OPTIMAL_TIME);
         int count=0;
         for (boolean x:inGame)
             if(x)
@@ -753,11 +778,17 @@ public class Board extends JPanel implements ActionListener {
         if(count>1){
             checkCollision();
             checkIngame();
-            move();
+            move(delta);
             frames++;
             if(frames>=500)
                 frames=0;
         }
         repaint();
+        try{
+           Thread.sleep(Math.abs(lastLoopTime - System.nanoTime())/1000000);
+        }
+        catch (InterruptedException exp){
+            exp.printStackTrace();
+        }
     }
 }
