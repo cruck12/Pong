@@ -11,6 +11,7 @@ public class Bat {
     int x;
     int y;
     boolean invulnerable=false;
+    boolean highSpeed = false;
     int WIDTH=75;
     int HEIGHT=10;
     Rectangle bounds;

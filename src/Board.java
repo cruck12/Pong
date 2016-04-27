@@ -126,6 +126,7 @@ public class Board extends JPanel implements ActionListener {
                 pos[j] = Math.abs(rand.nextInt()) % 5;
                 visiblePower[j]=true;
                 bats[j].invulnerable=false;
+                bats[j].highSpeed=false;
             }
         }
         else{
@@ -389,6 +390,9 @@ public class Board extends JPanel implements ActionListener {
                         break;
                     case 1:
                     case 2:
+                        visiblePower[0]=false;
+                        bats[0].highSpeed=true;
+                        break;
                     case 3:
                         visiblePower[0] = false;
                         lives[ball.last]++;
@@ -404,6 +408,9 @@ public class Board extends JPanel implements ActionListener {
                         break;
                     case 1:
                     case 2:
+                        visiblePower[1]=false;
+                        bats[1].highSpeed=true;
+                        break;
                     case 3:
                         visiblePower[1] = false;
                         lives[ball.last]++;
@@ -419,6 +426,9 @@ public class Board extends JPanel implements ActionListener {
                         break;
                     case 1:
                     case 2:
+                        visiblePower[2]=false;
+                        bats[2].highSpeed=true;
+                        break;
                     case 3:
                         visiblePower[2] = false;
                         lives[ball.last]++;
@@ -427,13 +437,16 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
             else if(visiblePower[3]&&ball.x<=50-ball.WIDTH&&ball.y>=B_HEIGHT-50){
-                switch(pos[2]) {
+                switch(pos[3]) {
                     case 0:
                         visiblePower[3]=false;
                         bats[3].invulnerable=true;
                         break;
                     case 1:
                     case 2:
+                        visiblePower[3]=false;
+                        bats[3].highSpeed=true;
+                        break;
                     case 3:
                         visiblePower[3] = false;
                         lives[ball.last]++;
@@ -544,7 +557,7 @@ public class Board extends JPanel implements ActionListener {
         //collision with the walls
         if(ball.x <=0 ){
             if(ball.y<350 && ball.y>50){
-                if(!bats[3].invulnerable)
+                if(!(bats[3].invulnerable&&displayPower))
                 lives[3]--;
                 ball.dx=-ball.dx;
                 collision=-4;
@@ -557,7 +570,7 @@ public class Board extends JPanel implements ActionListener {
         }
         else if(ball.x >=400-ball.WIDTH){
             if(ball.y<350 && ball.y>50){
-                if(!bats[1].invulnerable)
+                if(!(bats[1].invulnerable&&displayPower))
                 lives[1]--;
                 ball.dx=-ball.dx;
                 collision=-2;
@@ -570,7 +583,7 @@ public class Board extends JPanel implements ActionListener {
         }
         else if(ball.y >=400-ball.HEIGHT ){
             if(ball.x<350 && ball.x>50){
-                if(!bats[0].invulnerable)
+                if(!(bats[0].invulnerable&&displayPower))
                 lives[0]--;
                 ball.dy=-ball.dy;
                 collision=-1;
@@ -583,7 +596,7 @@ public class Board extends JPanel implements ActionListener {
         }
         else if(ball.y <=0 ){
             if(ball.x<350 && ball.x>50){
-                if(!bats[2].invulnerable)
+                if(!(bats[2].invulnerable&&displayPower))
                 lives[2]--;
                 ball.dy=-ball.dy;
                 collision=-3;
@@ -686,7 +699,11 @@ public class Board extends JPanel implements ActionListener {
 
         //limit the speed of the ball
         float speed=(float)Math.sqrt(ball.dx*ball.dx+ball.dy*ball.dy);
-        if(speed>9){
+        if(bats[ball.last].highSpeed&&displayPower){
+            ball.dx=ball.dx*12/speed;
+            ball.dy=ball.dy*12/speed;
+        }
+        else if(speed>9){
             ball.dx=ball.dx*9/speed;
             ball.dy=ball.dy*9/speed;
         }
@@ -722,10 +739,10 @@ public class Board extends JPanel implements ActionListener {
             checkCollision();
             checkIngame();
             move();
+            frames++;
+            if(frames>=500)
+                frames=0;
         }
         repaint();
-        frames++;
-        if(frames>=500)
-            frames=0;
     }
 }
