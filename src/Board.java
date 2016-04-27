@@ -18,6 +18,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean inGame[] = {true,true,true,true};
 
     private String powerUp[] = {"I","M","H","L","B"};
+    private Image power[] = new Image[5];
     private boolean displayPower = false;
     private int frames=0;
     private int pos[]=new int[4];
@@ -39,6 +40,11 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         ImageIcon imgBack = new ImageIcon("Board.jpg");
         background = imgBack.getImage();
+        power[0]= new ImageIcon("powerupLives.png").getImage();
+        power[1]= new ImageIcon("powerupFire.png").getImage();
+        power[2]= new ImageIcon("powerupGrow.png").getImage();
+        power[3]= new ImageIcon("powerupInvis.png").getImage();
+        power[4]= new ImageIcon("powerupB.png").getImage();
         addKeyListener(new TAdapter());
         initGame();
     }
@@ -49,6 +55,11 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         ImageIcon imgBack = new ImageIcon("Board.jpg");
         background = imgBack.getImage();
+        power[0]= new ImageIcon("powerupFire.png").getImage();
+        power[1]= new ImageIcon("powerupB.png").getImage();
+        power[2]= new ImageIcon("powerupGrow.png").getImage();
+        power[3]= new ImageIcon("powerupInvis.png").getImage();
+        power[4]= new ImageIcon("powerupLives.png").getImage();
         addKeyListener(new TAdapter());
         initGame();
     }
@@ -131,13 +142,17 @@ public class Board extends JPanel implements ActionListener {
         }
         else{
             if(visiblePower[0])
-            g2dText.drawString(powerUp[pos[0]], 25, 25);
+            //g2dText.drawString(powerUp[pos[0]], 25, 25);
+            g2d.drawImage(power[0],0,0,this);
             if(visiblePower[1])
-            g2dText.drawString(powerUp[pos[1]], B_WIDTH-25, 25);
+            //g2dText.drawString(powerUp[pos[1]], B_WIDTH-25, 25);
+            g2d.drawImage(power[1],B_WIDTH-50,0,this);
             if(visiblePower[2])
-            g2dText.drawString(powerUp[pos[2]], B_WIDTH-25, B_HEIGHT-25);
+            //g2dText.drawString(powerUp[pos[2]], B_WIDTH-25, B_HEIGHT-25);
+                g2d.drawImage(power[2],B_WIDTH-50,B_HEIGHT-50,this);
             if(visiblePower[3])
-            g2dText.drawString(powerUp[pos[3]], 25, B_HEIGHT-25);
+            //g2dText.drawString(powerUp[pos[3]], 25, B_HEIGHT-25);
+                g2d.drawImage(power[3],0,B_HEIGHT-50,this);
         }
 
         Toolkit.getDefaultToolkit().sync();

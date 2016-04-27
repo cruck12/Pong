@@ -53,7 +53,7 @@ public class Bat {
     public Rectangle getBounds(){
         return bounds;
     }
-    //TODO Restrict movement in required region
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if(horizontal) {
