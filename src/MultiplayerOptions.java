@@ -28,6 +28,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     MultiplayerBoard board;
     Timer timer;
     private final int DELAY = 18;
+    long lastLoopTime;
     int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
     float[] ball = {200,200};
     float[] ballv = {2,-3};
@@ -198,6 +199,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         tellEveryone("START");
+        lastLoopTime = System.nanoTime();
         System.out.println(playerNumber);
         board = new MultiplayerBoard(playerNumber);
         JFrame frame = new JFrame("Game");
@@ -212,13 +214,22 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
+                long delta = System.nanoTime() - lastLoopTime;
+                System.out.println(delta);
                 pos = board.getPlayerBatPosition(playerNumber);
                 ball = board.getBallPosition();
  //               ballv = board.getBallVelocity();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
-                tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
-                board.Update(true,ball,bats);
+                if(delta > 500000000) {
+                    tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
+                    lastLoopTime=System.nanoTime();
+                    board.Update(true, ball, bats);
+                }
+                else {
+                    tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
+                    board.Update(false, ball, bats);
+                }
             }
         };
         timer=new Timer(DELAY,taskPerformer);
@@ -321,6 +332,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                     else if (ip_array[0].equals("START"))
                     {
                         board = new MultiplayerBoard(playerNumber);
+                        lastLoopTime=System.nanoTime();
                         JFrame frame = new JFrame("Game");
                         frame.setContentPane(board);
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -337,17 +349,28 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 pos = board.getPlayerBatPosition(playerNumber);
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
+                                long delta = System.nanoTime() - lastLoopTime;
+                                System.out.println(delta);
                                 if(own_ip.equals(host_ip)) {
                                     ball=board.getBallPosition();
-                                    ballv = board.getBallVelocity();
-                                    tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
+//                                    ballv = board.getBallVelocity();
+                                    if(delta > 500000000) {
+                                        tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
+                                        lastLoopTime=System.nanoTime();
+                                    }
+                                    else
+                                        tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
                                     board.Update(true,ball,bats);
                                 }
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
-                                    board.Update(true,ball,bats);
+                                    if(delta > 500000000) {
+                                        board.Update(true, ball, bats);
+                                        lastLoopTime=System.nanoTime();
+                                    }
+                                    else
+                                        board.Update(false,ball,bats);
                                 }
-
                             }
                         };
                         timer=new Timer(DELAY,taskPerformer);
@@ -387,7 +410,6 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Float.parseFloat(ip_array[4]);
                                 ball[1]=Float.parseFloat(ip_array[5]);
-                                System.out.println(message);
                                 break;
                             }
                             case 1: {
