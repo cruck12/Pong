@@ -26,7 +26,7 @@ public class MultiplayerBoard extends JPanel  {
     private Timer timer;
     private Ball ball;
     private Image background;
-    private Bat[] bats;
+    public Bat[] bats;
 
     private int player=0;
 
@@ -118,6 +118,10 @@ public class MultiplayerBoard extends JPanel  {
         float y =(float)(ball.y + (ball.dy)*delta);
         ball.setPosition(x,y);
         for (int i = 0; i < 4; i++) {
+            if(bats[i].AI)
+            {
+                Board.easyAI(i,bats,ball);
+            }
             switch (i) {
                 case 0:
                     if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > 275 && bats[i].dx > 0)) && ((bats[i].y > 390 && bats[i].dy > 0) || (bats[i].y < 350 && bats[i].dy < 0))) {

@@ -171,7 +171,7 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    private void easyAI(int i,Bat[] bats,Ball ball){
+    public static void easyAI(int i,Bat[] bats,Ball ball){
         switch (i) {
             case 0:
             case 2:

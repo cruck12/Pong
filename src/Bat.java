@@ -14,6 +14,7 @@ public class Bat {
     boolean highSpeed = false;
     int WIDTH=75;
     int HEIGHT=10;
+    boolean AI = false;
     Rectangle bounds;
     // bat is 75 px wide, 10 px tall
     //could also possibly make sprite/ implement with rectangle: sprite seems better

@@ -202,6 +202,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         lastLoopTime = System.nanoTime();
         System.out.println(playerNumber);
         board = new MultiplayerBoard(playerNumber);
+        for(int i = users.size();i<4;i++)
+        {
+            board.bats[i].AI = true;
+        }
         JFrame frame = new JFrame("Game");
         frame.setContentPane(board);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -326,6 +330,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                     else if (ip_array[0].equals("START"))
                     {
                         board = new MultiplayerBoard(playerNumber);
+                        for(int i = users.size();i<4;i++)
+                        {
+                            board.bats[i].AI = true;
+                        }
                         lastLoopTime=System.nanoTime();
                         JFrame frame = new JFrame("Game");
                         frame.setContentPane(board);
