@@ -358,18 +358,27 @@ public class MultiplayerBoard extends JPanel  {
         setBallPosition(ballpos);
 //        setBallVelocity(ballv);
         for(int i=0;i<4;i++){
-            bats[i].setPosition(bat[i][0],bat[i][1]);
+            if(!bats[i].AI)
+            {
+                bats[i].setPosition(bat[i][0],bat[i][1]);
+            }
         }
     }
     private void moveItems(float[] ballpos, int[][] bat) {
         setBallPosition(ballpos);
         for(int i=0;i<4;i++){
-            bats[i].setPosition(bat[i][0],bat[i][1]);
+            if(!bats[i].AI)
+            {
+                bats[i].setPosition(bat[i][0],bat[i][1]);
+            }
         }
     }
     private void moveItems(int[][] bat) {
         for(int i=0;i<4;i++){
-            bats[i].setPosition(bat[i][0],bat[i][1]);
+            if(!bats[i].AI)
+            {
+                bats[i].setPosition(bat[i][0],bat[i][1]);
+            }
         }
     }
     private void checkIngame() {

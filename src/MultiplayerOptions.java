@@ -499,6 +499,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             } catch (Exception ex) {
                 msg_area.append("Lost a connection. \n");
                 msg_area.append("IP that was lost is " + ip);
+                int index = users.indexOf(ip);
                 clientOutputStreams.remove(client);
             }
         }
