@@ -13,6 +13,11 @@ public class MultiplayerBoard extends JPanel  {
     private final int B_WIDTH = 400;
     private final int B_HEIGHT = 400;
 //    private final int DELAY = 18;
+    private final long OPTIMAL_TIME = 18000000;
+
+    long lastLoopTime;
+    long lastFpsTime;
+    int fps;
 
     private boolean inGame[] = {true,true,true,true};
     private int lives[];
@@ -44,6 +49,7 @@ public class MultiplayerBoard extends JPanel  {
     }
 
     private void initGame() {
+        lastLoopTime=System.nanoTime();
         lives= new int[4];
         bats= new Bat[4];
         ball = new Ball();
@@ -107,8 +113,10 @@ public class MultiplayerBoard extends JPanel  {
         Toolkit.getDefaultToolkit().sync();
 
     }
-    private void move() {
-        ball.setPosition(ball.x + ball.dx, ball.y + ball.dy);
+    private void move(double delta) {
+        float x =(float)(ball.x + ((ball.dx)*delta));
+        float y =(float)(ball.y + (ball.dy)*delta);
+        ball.setPosition(x,y);
         for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
@@ -402,11 +410,28 @@ public class MultiplayerBoard extends JPanel  {
                 moveItems(ballPos,bat);
             else
                 moveItems(bat);
-            move();
+            move(1);
         }
         repaint();
     }
     public void Update(boolean collision,float[] ballPos,int[][] bat){
+        long now = System.nanoTime();
+        long updateLength= now - lastLoopTime;
+        lastLoopTime=now;
+        // update the frame counter
+        lastFpsTime += updateLength;
+        fps++;
+
+        // update our FPS counter if a second has passed since
+        // we last recorded
+        if (lastFpsTime >= 1000000000)
+        {
+            System.out.println("(FPS: "+fps+")");
+            lastFpsTime = 0;
+            fps = 0;
+        }
+
+        double delta = updateLength / ((double)OPTIMAL_TIME);
         int count=0;
         for (boolean x:inGame)
             if(x)
@@ -418,9 +443,15 @@ public class MultiplayerBoard extends JPanel  {
                 moveItems(ballPos,bat);
             else
                 moveItems(bat);
-            move();
+            move(delta);
         }
         repaint();
+        try{
+            Thread.sleep(Math.abs(lastLoopTime - System.nanoTime())/1000000);
+        }
+        catch (InterruptedException exp){
+            exp.printStackTrace();
+        }
     }
     public int[] getPlayerBatPosition(int player){
         int[] tmp = {bats[player].x,bats[player].y};
