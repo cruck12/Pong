@@ -500,6 +500,19 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 msg_area.append("Lost a connection. \n");
                 msg_area.append("IP that was lost is " + ip);
                 int index = users.indexOf(ip);
+                board.bats[index].AI = true;
+                int new_host = 0;
+                if(ip.equals(host_ip))
+                {
+                    for(int i =0 ;i<4 ;i++)
+                    {
+                        if(!board.bats[index].AI)
+                        {
+                            new_host = index;
+                        }
+                    }
+                    host_ip = (String)users.get(new_host);
+                }
                 clientOutputStreams.remove(client);
             }
         }
