@@ -352,9 +352,9 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 long delta = System.nanoTime() - lastLoopTime;
-                                System.out.println(delta);
                                 if(own_ip.equals(host_ip)) {
                                     ball=board.getBallPosition();
+                                    System.out.println(delta);
                                     if(delta > 500000000) {
                                         tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
                                     }
@@ -498,7 +498,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 }
             } catch (Exception ex) {
                 msg_area.append("Lost a connection. \n");
-                msg_area.append("IP that was lost is " + ip);
+                msg_area.append("IP that was lost is " + ip + "\n");
                 int index = users.indexOf(ip);
                 board.bats[index].AI = true;
                 int new_host = 0;
@@ -506,11 +506,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 {
                     for(int i =0 ;i<4 ;i++)
                     {
-                        if(!board.bats[index].AI)
+                        if(!board.bats[i].AI)
                         {
-                            new_host = index;
+                            new_host = i;
                         }
                     }
+
                     host_ip = (String)users.get(new_host);
                 }
                 clientOutputStreams.remove(client);
