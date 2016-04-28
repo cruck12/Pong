@@ -28,13 +28,13 @@ public class Bat {
     public Bat(boolean horizontal){
         this.horizontal=horizontal;
         if(this.horizontal){
-            ImageIcon imgBat = new ImageIcon("batHorizontal.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("batHorizontal.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }
         else
         {
-            ImageIcon imgBat = new ImageIcon("bat.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("bat.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }
@@ -48,12 +48,12 @@ public class Bat {
 
     public void increase(){
         if(this.horizontal){
-            ImageIcon imgBat = new ImageIcon("batHorizontalLong.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("batHorizontalLong.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }
         else{
-            ImageIcon imgBat = new ImageIcon("batLong.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("batLong.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }
@@ -62,12 +62,12 @@ public class Bat {
 
     public void decrease(){
         if(this.horizontal){
-            ImageIcon imgBat = new ImageIcon("batHorizontal.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("batHorizontal.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }
         else{
-            ImageIcon imgBat = new ImageIcon("bat.png");
+            ImageIcon imgBat = new ImageIcon(getClass().getResource("bat.png"));
             image = imgBat.getImage();
             bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
         }

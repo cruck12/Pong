@@ -23,7 +23,7 @@ public class Ball {
 
     //initialize the ball with its image and bounds
     public Ball(){
-        ImageIcon imgBall = new ImageIcon("ball.png");
+        ImageIcon imgBall = new ImageIcon(getClass().getResource("ball.png"));
         image = imgBall.getImage();
         bounds = new Rectangle((int)x,(int)y,image.getWidth(null),image.getHeight(null));
     }

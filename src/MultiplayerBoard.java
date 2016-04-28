@@ -33,7 +33,7 @@ public class MultiplayerBoard extends JPanel  {
     public MultiplayerBoard(){
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        ImageIcon imgBack = new ImageIcon("Board.jpg");
+        ImageIcon imgBack = new ImageIcon(getClass().getResource("Board.jpg"));
         background = imgBack.getImage();
         addKeyListener(new TAdapter());
         initGame();
@@ -42,7 +42,7 @@ public class MultiplayerBoard extends JPanel  {
         this.player=player;
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        ImageIcon imgBack = new ImageIcon("Board.jpg");
+        ImageIcon imgBack = new ImageIcon(getClass().getResource("Board.jpg"));
         background = imgBack.getImage();
         addKeyListener(new TAdapter());
         initGame();
@@ -480,15 +480,15 @@ public class MultiplayerBoard extends JPanel  {
         return tmp;
     }
 
-    public int[] getLives(){
-        return lives;
-    }
-
     public void setBallVelocity(float[] vel){
         ball.setVelocity(vel[0],vel[1]);
     }
     public void setBallPosition(float[] pos){
         ball.setPosition(pos[0],pos[1]);
+    }
+
+    public int[] getLives(){
+        return lives;
     }
 
     public void setLives(int[] lives)
