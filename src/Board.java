@@ -66,12 +66,12 @@ public class Board extends JPanel implements ActionListener {
         this.player=player;
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        ImageIcon imgBack = new ImageIcon("Board.jpg");
+        ImageIcon imgBack = new ImageIcon(getClass().getResource("Board.jpg"));
         background = imgBack.getImage();
-        power[0]= new ImageIcon("powerupLives.png").getImage();
-        power[1]= new ImageIcon("powerupGrow.png").getImage();
-        power[2]= new ImageIcon("powerupInvis.png").getImage();
-        power[3]= new ImageIcon("powerupB.png").getImage();
+        power[0]= new ImageIcon(getClass().getResource("powerupLives.png")).getImage();
+        power[1]= new ImageIcon(getClass().getResource("powerupGrow.png")).getImage();
+        power[2]= new ImageIcon(getClass().getResource("powerupInvis.png")).getImage();
+        power[3]= new ImageIcon(getClass().getResource("powerupB.png")).getImage();
         addKeyListener(new TAdapter());
         initGame();
     }
