@@ -490,4 +490,9 @@ public class MultiplayerBoard extends JPanel  {
     public void setBallPosition(float[] pos){
         ball.setPosition(pos[0],pos[1]);
     }
+
+    public void setLives(int[] lives)
+    {
+        this.lives = lives;
+    }
 }

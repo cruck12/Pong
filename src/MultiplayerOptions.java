@@ -218,12 +218,15 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
+                int[] lives = new int[4];
                 pos = board.getPlayerBatPosition(playerNumber);
+                lives = board.getLives();
                 long delta = System.nanoTime() - lastLoopTime;
                 ball = board.getBallPosition();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];if(delta > 500000000) {
-                    tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
+                    tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]
+                            +" "+lives[0]+" "+lives[1]+" "+lives[2]+" "+lives[3]);
                 }
                 else
                     tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
@@ -348,15 +351,17 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         ActionListener taskPerformer = new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
                                 int[] pos = new int[2];
+                                int[] lives = new int[4];
                                 pos = board.getPlayerBatPosition(playerNumber);
+                                lives = board.getLives();
                                 bats[playerNumber][0]=pos[0];
                                 bats[playerNumber][1]=pos[1];
                                 long delta = System.nanoTime() - lastLoopTime;
                                 if(own_ip.equals(host_ip)) {
                                     ball=board.getBallPosition();
-                                    System.out.println(delta);
                                     if(delta > 500000000) {
-                                        tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
+                                        tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]
+                                        +" "+lives[0]+" "+lives[1]+" "+lives[2]+" "+lives[3]);
                                     }
                                     else
                                         tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
@@ -409,6 +414,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Float.parseFloat(ip_array[4]);
                                 ball[1]=Float.parseFloat(ip_array[5]);
+                                int lives[] = new int[4];
+                                lives[0] = Integer.parseInt(ip_array[6]);
+                                lives[1] = Integer.parseInt(ip_array[7]);
+                                lives[2] = Integer.parseInt(ip_array[8]);
+                                lives[3] = Integer.parseInt(ip_array[9]);
+                                board.setLives(lives);
                                 break;
                             }
                             case 1: {
@@ -416,6 +427,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[1][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Float.parseFloat(ip_array[4]);
                                 ball[1]=Float.parseFloat(ip_array[5]);
+                                int lives[] = new int[4];
+                                lives[0] = Integer.parseInt(ip_array[6]);
+                                lives[1] = Integer.parseInt(ip_array[7]);
+                                lives[2] = Integer.parseInt(ip_array[8]);
+                                lives[3] = Integer.parseInt(ip_array[9]);
+                                board.setLives(lives);
                                 break;
                             }
                             case 2: {
@@ -423,6 +440,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[2][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Float.parseFloat(ip_array[4]);
                                 ball[1]=Float.parseFloat(ip_array[5]);
+                                int lives[] = new int[4];
+                                lives[0] = Integer.parseInt(ip_array[6]);
+                                lives[1] = Integer.parseInt(ip_array[7]);
+                                lives[2] = Integer.parseInt(ip_array[8]);
+                                lives[3] = Integer.parseInt(ip_array[9]);
+                                board.setLives(lives);
                                 break;
                             }
                             case 3: {
@@ -430,6 +453,12 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[3][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Float.parseFloat(ip_array[4]);
                                 ball[1]=Float.parseFloat(ip_array[5]);
+                                int lives[] = new int[4];
+                                lives[0] = Integer.parseInt(ip_array[6]);
+                                lives[1] = Integer.parseInt(ip_array[7]);
+                                lives[2] = Integer.parseInt(ip_array[8]);
+                                lives[3] = Integer.parseInt(ip_array[9]);
+                                board.setLives(lives);
                                 break;
                             }
                         }
@@ -509,6 +538,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         if(!board.bats[i].AI)
                         {
                             new_host = i;
+                            break;
                         }
                     }
 
