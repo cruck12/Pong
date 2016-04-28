@@ -9,6 +9,8 @@ import java.awt.geom.Rectangle2D;
 /**
  * Created by Sahil on 4/20/2016.
  */
+
+// SAME LOGIC AS SINGLE PLAYER BOARD
 public class MultiplayerBoard extends JPanel  {
     private final int B_WIDTH = 400;
     private final int B_HEIGHT = 400;
@@ -364,6 +366,8 @@ public class MultiplayerBoard extends JPanel  {
             }
         }
     }
+
+    //move items based on information provided by p2p network
     private void moveItems(float[] ballpos, int[][] bat) {
         setBallPosition(ballpos);
         for(int i=0;i<4;i++){
@@ -373,6 +377,7 @@ public class MultiplayerBoard extends JPanel  {
             }
         }
     }
+    //move items based on information provided by p2p network
     private void moveItems(int[][] bat) {
         for(int i=0;i<4;i++){
             if(!bats[i].AI)
@@ -410,6 +415,7 @@ public class MultiplayerBoard extends JPanel  {
 
     }
 
+    //the update function to re render based on latest network information
     public void Update(boolean collision,float[] ballPos,int[][] bat, float[] ballv){
         int count=0;
         for (boolean x:inGame)
@@ -427,6 +433,8 @@ public class MultiplayerBoard extends JPanel  {
         }
         repaint();
     }
+
+    //the update function to re render based on latest network information
     public void Update(boolean collision,float[] ballPos,int[][] bat){
         long now = System.nanoTime();
         long updateLength= now - lastLoopTime;
