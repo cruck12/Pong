@@ -480,6 +480,10 @@ public class MultiplayerBoard extends JPanel  {
         return tmp;
     }
 
+    public int[] getLives(){
+        return lives;
+    }
+
     public void setBallVelocity(float[] vel){
         ball.setVelocity(vel[0],vel[1]);
     }

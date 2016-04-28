@@ -11,29 +11,35 @@ import java.util.Random;
  * Created by Sahil on 4/20/2016.
  */
 public class Board extends JPanel implements ActionListener {
+
+    //board parameters
     private final int B_WIDTH = 400;
     private final int B_HEIGHT = 400;
     private final int DELAY = 18;
     private final long OPTIMAL_TIME = 18000000;
 
+    //for frameskip interpolation
     long lastLoopTime;
     long lastFpsTime;
     int fps;
 
+    //to see which players are ingame
     private boolean inGame[] = {true,true,true,true};
 
-    private String powerUp[] = {"I","H","L","B"};
-    private Image power[] = new Image[5];
+    //for power up initialization and implemetnation
+    private Image power[] = new Image[4];
     private boolean displayPower = false;
     private int frames=0;
     private int pos[]=new int[4];
     private boolean visiblePower[] = {false,false,false,false};
     private String msg="";
 
+    //lives the player
     private int lives[];
     private int collision=-5;
     private int ai=0;
 
+    //game timer for rendering
     private Timer timer;
     private Ball ball;
     private Image background;
@@ -53,6 +59,8 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
         initGame();
     }
+
+    //initialize board with particular player bat number and AI difficulty
     public Board(int player,int ai){
         this.ai=ai;
         this.player=player;
@@ -68,6 +76,7 @@ public class Board extends JPanel implements ActionListener {
         initGame();
     }
 
+    //initialize game parameters like lives, bats and the ball, set them at correct initial locations
     private void initGame() {
         lastLoopTime=System.nanoTime();
         lives= new int[4];
@@ -104,6 +113,7 @@ public class Board extends JPanel implements ActionListener {
         draw(g);
     }
 
+    //render the frame with current parameters
     private void draw(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
@@ -111,9 +121,10 @@ public class Board extends JPanel implements ActionListener {
         rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHints(rh);
 
+        //render ball
         g2d.drawImage(ball.image, Math.round(ball.x), Math.round(ball.y), this);
-        System.out.println(Math.round(ball.x)+" "+Math.round(ball.y) );
 
+        //render bats if they are in the game
         for (int i = 0; i < 4; i++) {
             if (inGame[i])
                 g2d.drawImage(bats[i].image, bats[i].x, bats[i].y, this);
@@ -121,6 +132,8 @@ public class Board extends JPanel implements ActionListener {
                 bats[i].setPosition(500,500);
         }
         Graphics2D g2dText = (Graphics2D) g;
+
+        // render text- lives remaining
         g2dText.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         if(lives[0]>0)
             g2dText.drawString("Lives: Player 1-" + lives[0], 150, 335);
@@ -136,6 +149,7 @@ public class Board extends JPanel implements ActionListener {
         g2dText.rotate(-Math.PI / 2);
         g2dText.drawString(msg, 150, 200);
 
+        //render images
         if(frames<250) {
             displayPower = false;
             msg = "";
@@ -146,7 +160,7 @@ public class Board extends JPanel implements ActionListener {
             displayPower=true;
             Random rand = new Random();
             for(int j=0;j<4;j++) {
-                pos[j] = Math.abs(rand.nextInt()) % 5;
+                pos[j] = Math.abs(rand.nextInt()) % 4;
                 visiblePower[j]=true;
                 bats[j].invulnerable=false;
                 bats[j].highSpeed=false;
@@ -155,22 +169,24 @@ public class Board extends JPanel implements ActionListener {
         else{
             if(visiblePower[0])
             //g2dText.drawString(powerUp[pos[0]], 25, 25);
-            g2d.drawImage(power[0],0,0,this);
+                g2d.drawImage(power[pos[0]],0,0,this);
             if(visiblePower[1])
             //g2dText.drawString(powerUp[pos[1]], B_WIDTH-25, 25);
-            g2d.drawImage(power[1],B_WIDTH-50,0,this);
+                g2d.drawImage(power[pos[1]],B_WIDTH-50,0,this);
             if(visiblePower[2])
             //g2dText.drawString(powerUp[pos[2]], B_WIDTH-25, B_HEIGHT-25);
-                g2d.drawImage(power[2],B_WIDTH-50,B_HEIGHT-50,this);
+                g2d.drawImage(power[pos[2]],B_WIDTH-50,B_HEIGHT-50,this);
             if(visiblePower[3])
             //g2dText.drawString(powerUp[pos[3]], 25, B_HEIGHT-25);
-                g2d.drawImage(power[3],0,B_HEIGHT-50,this);
+                g2d.drawImage(power[pos[3]],0,B_HEIGHT-50,this);
         }
 
         Toolkit.getDefaultToolkit().sync();
 
     }
 
+    //code for easy AI
+    //It simply tries to follow the ball and touch it
     public static void easyAI(int i,Bat[] bats,Ball ball){
         switch (i) {
             case 0:
@@ -194,6 +210,8 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    //code for hard AI
+    //It tries to predict where the ball will be, and hit it there
     private void hardAI(int i, Bat[] bats, Ball ball ){
         int xf;
         switch(i){
@@ -312,6 +330,8 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    //Expert AI
+    //Predicts where the ball will end up, and moves towards it to impart extra speed and direction
     private void expertAI(int i, Bat[] bats, Ball ball){
         switch(i){
             case 0:
@@ -406,6 +426,7 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
+    //get which power up is displayed, and apply the effects accordingly
     private void getPowerUp(){
         if(displayPower) {
             if (visiblePower[0]&&ball.x <= 50 - ball.WIDTH && ball.y <= 50 - ball.HEIGHT){
@@ -508,6 +529,7 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    // change positions as calculated by the physics
     private void move(double delta) {
         float x =(float)(ball.x + ((ball.dx)*delta));
         float y =(float)(ball.y + (ball.dy)*delta);
@@ -523,6 +545,7 @@ public class Board extends JPanel implements ActionListener {
                 else
                     expertAI(i,bats,ball);
             }
+            // bind the positions of the bat to be in its own range
             switch (i) {
                 case 0:
                     if (((bats[i].x < 50 && bats[i].dx < 0) || (bats[i].x > B_WIDTH-50-bats[i].WIDTH && bats[i].dx > 0)) && ((bats[i].y > B_HEIGHT-bats[i].HEIGHT && bats[i].dy > 0) || (bats[i].y < B_HEIGHT-50 && bats[i].dy < 0))) {
@@ -606,6 +629,7 @@ public class Board extends JPanel implements ActionListener {
         }
 
     }
+    //calculate physics
     private void checkCollision(){
         //collision with the walls
         if(ball.x <=0 ){
@@ -768,7 +792,7 @@ public class Board extends JPanel implements ActionListener {
                 inGame[i]=false;
         }
     }
-
+    // to check button press
     private class TAdapter extends KeyAdapter {
 
         @Override
@@ -802,6 +826,7 @@ public class Board extends JPanel implements ActionListener {
 
         double delta = updateLength / ((double)OPTIMAL_TIME);
         int count=0;
+        //if atleast one player is in the game keep rendering
         for (boolean x:inGame)
             if(x)
                 count++;
