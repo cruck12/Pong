@@ -28,6 +28,7 @@ public class Board extends JPanel implements ActionListener {
     private int frames=0;
     private int pos[]=new int[4];
     private boolean visiblePower[] = {false,false,false,false};
+    private String msg="";
 
     private int lives[];
     private int collision=-5;
@@ -135,8 +136,12 @@ public class Board extends JPanel implements ActionListener {
         if(lives[3]>0)
             g2dText.drawString("Lives: Player 4-" + lives[3], 150, -75);
         g2dText.rotate(-Math.PI / 2);
-        if(frames<250)
+        g2dText.drawString(msg, 150, 200);
+
+        if(frames<250) {
             displayPower = false;
+            msg = "";
+        }
         else if(!displayPower){
             displayPower=true;
             Random rand = new Random();
@@ -166,7 +171,7 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    private void easyAI(int i){
+    private void easyAI(int i,Bat[] bats,Ball ball){
         switch (i) {
             case 0:
             case 2:
@@ -189,7 +194,7 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void hardAI(int i){
+    private void hardAI(int i, Bat[] bats, Ball ball ){
         int xf;
         switch(i){
             case 0:
@@ -307,8 +312,7 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void expertAI(int i){
-        int xf;
+    private void expertAI(int i, Bat[] bats, Ball ball){
         switch(i){
             case 0:
                 if(ball.x>30&&ball.x<350&&ball.y>350-ball.HEIGHT){
@@ -328,7 +332,7 @@ public class Board extends JPanel implements ActionListener {
                     }
                 }
                 else {
-                    hardAI(0);
+                    hardAI(0,bats,ball);
                     bats[0].dy=2;
                 }
                 break;
@@ -350,7 +354,7 @@ public class Board extends JPanel implements ActionListener {
                     }
                 }
                 else {
-                    hardAI(1);
+                    hardAI(1,bats,ball);
                     bats[1].dx=2;
                 }
                 break;
@@ -372,7 +376,7 @@ public class Board extends JPanel implements ActionListener {
                     }
                 }
                 else {
-                    hardAI(2);
+                    hardAI(2,bats,ball);
                     bats[2].dy=-2;
                 }
                 break;
@@ -394,7 +398,7 @@ public class Board extends JPanel implements ActionListener {
                     }
                 }
                 else {
-                    hardAI(3);
+                    hardAI(3,bats,ball);
                     bats[3].dx = -2;
                 }
                 break;
@@ -408,16 +412,19 @@ public class Board extends JPanel implements ActionListener {
                 switch(pos[0]) {
                     case 0:
                         visiblePower[0]=false;
-                        bats[0].invulnerable=true;
+                        bats[ball.last].invulnerable=true;
+                        msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
                     case 2:
                         visiblePower[0]=false;
-                        bats[0].highSpeed=true;
+                        bats[ball.last].highSpeed=true;
+                        msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
                     case 3:
                         visiblePower[0] = false;
                         lives[ball.last]++;
+                        msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
                     case 4:
                 }
@@ -426,16 +433,19 @@ public class Board extends JPanel implements ActionListener {
                 switch(pos[1]) {
                     case 0:
                         visiblePower[1]=false;
-                        bats[1].invulnerable=true;
+                        bats[ball.last].invulnerable=true;
+                        msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
                     case 2:
                         visiblePower[1]=false;
-                        bats[1].highSpeed=true;
+                        bats[ball.last].highSpeed=true;
+                        msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
                     case 3:
                         visiblePower[1] = false;
                         lives[ball.last]++;
+                        msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
                     case 4:
                 }
@@ -444,16 +454,19 @@ public class Board extends JPanel implements ActionListener {
                 switch(pos[2]) {
                     case 0:
                         visiblePower[2]=false;
-                        bats[2].invulnerable=true;
+                        bats[ball.last].invulnerable=true;
+                        msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
                     case 2:
                         visiblePower[2]=false;
-                        bats[2].highSpeed=true;
+                        bats[ball.last].highSpeed=true;
+                        msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
                     case 3:
                         visiblePower[2] = false;
                         lives[ball.last]++;
+                        msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
                     case 4:
                 }
@@ -462,20 +475,24 @@ public class Board extends JPanel implements ActionListener {
                 switch(pos[3]) {
                     case 0:
                         visiblePower[3]=false;
-                        bats[3].invulnerable=true;
+                        bats[ball.last].invulnerable=true;
+                        msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
                     case 2:
                         visiblePower[3]=false;
-                        bats[3].highSpeed=true;
+                        bats[ball.last].highSpeed=true;
+                        msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
                     case 3:
                         visiblePower[3] = false;
                         lives[ball.last]++;
+                        msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
                     case 4:
                 }
             }
+
         }
     }
 
@@ -488,11 +505,11 @@ public class Board extends JPanel implements ActionListener {
         for (int i = 0; i < 4; i++) {
             if (i != player){
                 if(ai==0)
-                    easyAI(i);
+                    easyAI(i,bats,ball);
                 else if(ai==1)
-                    hardAI(i);
+                    hardAI(i,bats,ball);
                 else
-                    expertAI(i);
+                    expertAI(i,bats,ball);
             }
             switch (i) {
                 case 0:
