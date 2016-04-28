@@ -22,7 +22,7 @@ public class Board extends JPanel implements ActionListener {
 
     private boolean inGame[] = {true,true,true,true};
 
-    private String powerUp[] = {"I","M","H","L","B"};
+    private String powerUp[] = {"I","H","L","B"};
     private Image power[] = new Image[5];
     private boolean displayPower = false;
     private int frames=0;
@@ -47,10 +47,9 @@ public class Board extends JPanel implements ActionListener {
         ImageIcon imgBack = new ImageIcon("Board.jpg");
         background = imgBack.getImage();
         power[0]= new ImageIcon("powerupLives.png").getImage();
-        power[1]= new ImageIcon("powerupFire.png").getImage();
-        power[2]= new ImageIcon("powerupGrow.png").getImage();
-        power[3]= new ImageIcon("powerupInvis.png").getImage();
-        power[4]= new ImageIcon("powerupB.png").getImage();
+        power[1]= new ImageIcon("powerupGrow.png").getImage();
+        power[2]= new ImageIcon("powerupInvis.png").getImage();
+        power[3]= new ImageIcon("powerupB.png").getImage();
         addKeyListener(new TAdapter());
         initGame();
     }
@@ -61,11 +60,10 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         ImageIcon imgBack = new ImageIcon("Board.jpg");
         background = imgBack.getImage();
-        power[0]= new ImageIcon("powerupFire.png").getImage();
-        power[1]= new ImageIcon("powerupB.png").getImage();
-        power[2]= new ImageIcon("powerupGrow.png").getImage();
-        power[3]= new ImageIcon("powerupInvis.png").getImage();
-        power[4]= new ImageIcon("powerupLives.png").getImage();
+        power[0]= new ImageIcon("powerupLives.png").getImage();
+        power[1]= new ImageIcon("powerupGrow.png").getImage();
+        power[2]= new ImageIcon("powerupInvis.png").getImage();
+        power[3]= new ImageIcon("powerupB.png").getImage();
         addKeyListener(new TAdapter());
         initGame();
     }
@@ -141,6 +139,8 @@ public class Board extends JPanel implements ActionListener {
         if(frames<250) {
             displayPower = false;
             msg = "";
+            for(int j=0;j<4;j++)
+                bats[j].decrease();
         }
         else if(!displayPower){
             displayPower=true;
@@ -416,17 +416,20 @@ public class Board extends JPanel implements ActionListener {
                         msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
-                    case 2:
                         visiblePower[0]=false;
                         bats[ball.last].highSpeed=true;
                         msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
-                    case 3:
+                    case 2:
                         visiblePower[0] = false;
                         lives[ball.last]++;
                         msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
-                    case 4:
+                    case 3:
+                        visiblePower[0] = false;
+                        bats[ball.last].increase();
+                        msg="Player "+(ball.last+1)+": LONG BAT";
+                        break;
                 }
             }
             else if(visiblePower[1]&&ball.x>=B_WIDTH-50&&ball.y<=50-ball.HEIGHT){
@@ -437,17 +440,20 @@ public class Board extends JPanel implements ActionListener {
                         msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
-                    case 2:
                         visiblePower[1]=false;
                         bats[ball.last].highSpeed=true;
                         msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
-                    case 3:
+                    case 2:
                         visiblePower[1] = false;
                         lives[ball.last]++;
                         msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
-                    case 4:
+                    case 3:
+                        visiblePower[1] = false;
+                        bats[ball.last].increase();
+                        msg="Player "+(ball.last+1)+": LONG BAT";
+                        break;
                 }
             }
             else if(visiblePower[2]&&ball.x>=B_WIDTH-50&&ball.y>=B_HEIGHT-50){
@@ -458,17 +464,20 @@ public class Board extends JPanel implements ActionListener {
                         msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
-                    case 2:
                         visiblePower[2]=false;
                         bats[ball.last].highSpeed=true;
                         msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
-                    case 3:
+                    case 2:
                         visiblePower[2] = false;
                         lives[ball.last]++;
                         msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
-                    case 4:
+                    case 3:
+                        visiblePower[2] = false;
+                        bats[ball.last].increase();
+                        msg="Player "+(ball.last+1)+": LONG BAT";
+                        break;
                 }
             }
             else if(visiblePower[3]&&ball.x<=50-ball.WIDTH&&ball.y>=B_HEIGHT-50){
@@ -479,17 +488,20 @@ public class Board extends JPanel implements ActionListener {
                         msg="Player "+(ball.last+1)+": INVULNERABLE";
                         break;
                     case 1:
-                    case 2:
                         visiblePower[3]=false;
                         bats[ball.last].highSpeed=true;
                         msg="Player "+(ball.last+1)+": HIGH SPEED";
                         break;
-                    case 3:
+                    case 2:
                         visiblePower[3] = false;
                         lives[ball.last]++;
                         msg="Player "+(ball.last+1)+": EXTRA LIFE";
                         break;
-                    case 4:
+                    case 3:
+                        visiblePower[3] = false;
+                        bats[ball.last].increase();
+                        msg="Player "+(ball.last+1)+": LONG BAT";
+                        break;
                 }
             }
 

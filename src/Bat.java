@@ -45,6 +45,34 @@ public class Bat {
         bounds.setLocation(x,y);
     }
 
+    public void increase(){
+        if(this.horizontal){
+            ImageIcon imgBat = new ImageIcon("batHorizontalLong.png");
+            image = imgBat.getImage();
+            bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+        }
+        else{
+            ImageIcon imgBat = new ImageIcon("batLong.png");
+            image = imgBat.getImage();
+            bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+        }
+        WIDTH=130;
+    }
+
+    public void decrease(){
+        if(this.horizontal){
+            ImageIcon imgBat = new ImageIcon("batHorizontal.png");
+            image = imgBat.getImage();
+            bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+        }
+        else{
+            ImageIcon imgBat = new ImageIcon("bat.png");
+            image = imgBat.getImage();
+            bounds = new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+        }
+        WIDTH=75;
+    }
+
     public void resetVelocity() {
         dx=0;
         dy=0;
