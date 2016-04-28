@@ -215,7 +215,6 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent evt) {
                 int[] pos = new int[2];
                 long delta = System.nanoTime() - lastLoopTime;
-                System.out.println(delta);
                 pos = board.getPlayerBatPosition(playerNumber);
                 ball = board.getBallPosition();
  //               ballv = board.getBallVelocity();
@@ -224,10 +223,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 if(delta > 500000000) {
                     tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
                     lastLoopTime=System.nanoTime();
-                    board.Update(true, ball, bats);
+                    board.Update(false, ball, bats);
                 }
                 else {
-                    tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
+                    tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
                     board.Update(false, ball, bats);
                 }
             }
@@ -356,7 +355,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 //                                    ballv = board.getBallVelocity();
                                     if(delta > 500000000) {
                                         tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]);
-                                        lastLoopTime=System.nanoTime();
+//                                        lastLoopTime=System.nanoTime();
                                     }
                                     else
                                         tellEveryone("Move" +" "+pos[0]+" "+pos[1]+" "+playerNumber);
@@ -365,7 +364,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 else {
                                     tellEveryone("Move" + " " + pos[0] + " " + pos[1] + " " + playerNumber);
                                     if(delta > 500000000) {
-                                        board.Update(true, ball, bats);
+                                        board.Update(false, ball, bats);
                                         lastLoopTime=System.nanoTime();
                                     }
                                     else
