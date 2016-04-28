@@ -108,7 +108,7 @@ public class MultiplayerBoard extends JPanel  {
 
     }
     private void move() {
-        ball.setPosition(Math.round(ball.x + ball.dx), Math.round(ball.y + ball.dy));
+        ball.setPosition(ball.x + ball.dx, ball.y + ball.dy);
         for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
@@ -199,117 +199,157 @@ public class MultiplayerBoard extends JPanel  {
             if(ball.y<350 && ball.y>50){
                 lives[3]--;
                 ball.dx=-ball.dx;
+                collision=-4;
             }
             else{
                 ball.dx=-ball.dx;
+                collision=-5;
             }
             ball.x=0;
-            collision=-1;
         }
-        else if(ball.x >=380){
+        else if(ball.x >=400-ball.WIDTH){
             if(ball.y<350 && ball.y>50){
                 lives[1]--;
                 ball.dx=-ball.dx;
+                collision=-2;
             }
             else{
                 ball.dx=-ball.dx;
+                collision=-5;
             }
-            ball.x=380;
-            collision=-1;
+            ball.x=400-ball.WIDTH;
         }
-        else if(ball.y >=380 ){
+        else if(ball.y >=400-ball.HEIGHT ){
             if(ball.x<350 && ball.x>50){
                 lives[0]--;
                 ball.dy=-ball.dy;
+                collision=-1;
             }
             else{
                 ball.dy=-ball.dy;
+                collision=-5;
             }
-            ball.y=380;
-            collision=-1;
+            ball.y=400-ball.HEIGHT;
         }
         else if(ball.y <=0 ){
             if(ball.x<350 && ball.x>50){
                 lives[2]--;
                 ball.dy=-ball.dy;
+                collision=-3;
             }
             else{
                 ball.dy=-ball.dy;
+                collision=-5;
             }
             ball.y=0;
-            collision=-1;
         }
         // Collision with the Bat
         for (int i=0; i<4; i++){
-            if(collision==i){
+            if(collision==i)
                 continue;
-            }
             switch (i){
-                case 0: if(bats[0].getBounds().intersects(ball.getBounds())){
-                    collision=0;
-                    Rectangle2D intersection= bats[0].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getWidth()>intersection.getHeight()){
-                        ball.dy=-ball.dy+ (float)(bats[0].dy)/4;
-                        ball.dx+=(float)bats[0].dx /10;
-                        ball.y=ball.y<bats[0].y?bats[0].y-20:bats[0].y+10;
-                    }
-                    else{
-                        ball.dx=-ball.dx;
-                    }
-//                   System.out.println (ball.dx +"      "+ ball.dy);
-                }
-                    break;
-                case 1: if(bats[1].getBounds().intersects(ball.getBounds())){
-                    collision = 1;
-                    Rectangle2D intersection= bats[1].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + (float) bats[1].dx / 4;
-                        ball.dy +=(float) bats[1].dy / 10;
-                        ball.x=ball.x<bats[1].x?bats[1].x-20:bats[1].x+10;
-                    }
-                    else{
-                        ball.dy=-ball.dy;
+                case 0:if(collision!=-1) {
+                    if (bats[0].getBounds().intersects(ball.getBounds())) {
+                        collision = 0;
+                        ball.last=0;
+                        Rectangle2D intersection = bats[0].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getWidth() > intersection.getHeight()) {
+                            ball.dy = -ball.dy + (float) (bats[0].dy) / 4;
+                            ball.dx += (float) bats[0].dx / 10;
+                            ball.y = ball.y < bats[0].y ? bats[0].y - 20 : bats[0].y + 10;
+                        } else {
+                            if((ball.x<bats[0].x&&ball.dx<0)||(ball.x+ball.WIDTH>bats[0].x+bats[0].WIDTH&&ball.dx>0)){
+                                ball.dy = -ball.dy + (float) (bats[0].dy) / 4;
+                                ball.dx += (float) bats[0].dx / 10;
+                                ball.y = ball.y < bats[0].y ? bats[0].y - 20 : bats[0].y + 10;
+                            }
+                            else
+                                ball.dx = -ball.dx;
+                        }
                     }
                 }
                     break;
-                case 2: if(bats[2].getBounds().intersects(ball.getBounds())){
-                    collision = 2;
-                    Rectangle2D intersection= bats[2].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getWidth()>intersection.getHeight()) {
-                        ball.dy = -ball.dy + (float) bats[2].dy / 4;
-                        ball.dx += (float)bats[2].dx / 10;
-                        ball.y=ball.y>bats[2].y?bats[2].y+10:bats[2].y-20;
-                    }
-                    else{
-                        ball.dx=-ball.dx;
+                case 1:if(collision!=-2) {
+                    if (bats[1].getBounds().intersects(ball.getBounds())) {
+                        ball.last=1;
+                        collision = 1;
+                        Rectangle2D intersection = bats[1].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getHeight() > intersection.getWidth()) {
+                            ball.dx = -ball.dx + (float) bats[1].dx / 4;
+                            ball.dy += (float) bats[1].dy / 10;
+                            ball.x = ball.x < bats[1].x ? bats[1].x - 20 : bats[1].x + 10;
+                        } else {
+                            if((ball.y<bats[1].y&&ball.dy<0)||(ball.y+ball.HEIGHT>bats[1].WIDTH+bats[1].y&&ball.dy>0)){
+                                ball.dx = -ball.dx + (float) bats[1].dx / 4;
+                                ball.dy += (float) bats[1].dy / 10;
+                                ball.x = ball.x < bats[1].x ? bats[1].x - 20 : bats[1].x + 10;
+                            }
+                            else
+                                ball.dy = -ball.dy;
+                        }
                     }
                 }
                     break;
-                case 3: if(bats[3].getBounds().intersects(ball.getBounds())){
-                    collision = 3;
-                    Rectangle2D intersection= bats[3].getBounds().createIntersection(ball.getBounds());
-                    if(intersection.getHeight()>intersection.getWidth()) {
-                        ball.dx = -ball.dx + (float) bats[3].dx / 4;
-                        ball.dy += (float) bats[3].dy / 10;
-                        ball.x=ball.x>bats[3].x?bats[3].x+10:bats[3].x-20;
+                case 2:if(collision!=-3) {
+                    if (bats[2].getBounds().intersects(ball.getBounds())) {
+                        ball.last=2;
+                        collision = 2;
+                        Rectangle2D intersection = bats[2].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getWidth() > intersection.getHeight()) {
+                            ball.dy = -ball.dy + (float) bats[2].dy / 4;
+                            ball.dx += (float) bats[2].dx / 10;
+                            ball.y = ball.y > bats[2].y ? bats[2].y + 10 : bats[2].y - 20;
+                        } else {
+                            if((ball.x<bats[2].x&&ball.dx<0)||(ball.x+ball.WIDTH>bats[2].x+bats[2].WIDTH&&ball.dx>0)){
+                                ball.dy = -ball.dy + (float) bats[2].dy / 4;
+                                ball.dx += (float) bats[2].dx / 10;
+                                ball.y = ball.y > bats[2].y ? bats[2].y + 10 : bats[2].y - 20;
+                            }
+                            else
+                                ball.dx = -ball.dx;
+                        }
                     }
-                    else{
-                        ball.dy=-ball.dy;
+                }
+                    break;
+                case 3:if(collision!=-4) {
+                    if (bats[3].getBounds().intersects(ball.getBounds())) {
+                        ball.last=3;
+                        collision = 3;
+                        Rectangle2D intersection = bats[3].getBounds().createIntersection(ball.getBounds());
+                        if (intersection.getHeight() > intersection.getWidth()) {
+                            ball.dx = -ball.dx + (float) bats[3].dx / 4;
+                            ball.dy += (float) bats[3].dy / 10;
+                            ball.x = ball.x > bats[3].x ? bats[3].x + 10 : bats[3].x - 20;
+                        } else {
+                            if((ball.y<bats[3].y&&ball.dy<0)||(ball.y+ball.HEIGHT>bats[3].WIDTH+bats[3].y&&ball.dy>0)){
+                                ball.dx = -ball.dx + (float) bats[3].dx / 4;
+                                ball.dy += (float) bats[3].dy / 10;
+                                ball.x = ball.x > bats[3].x ? bats[3].x + 10 : bats[3].x - 20;
+                            }
+                            else
+                                ball.dy = -ball.dy;
+                        }
                     }
                 }
                     break;
             }
         }
+        //limit the speed of the ball
+        float speed=(float)Math.sqrt(ball.dx*ball.dx+ball.dy*ball.dy);
+        if(speed>9){
+            ball.dx=ball.dx*9/speed;
+            ball.dy=ball.dy*9/speed;
+        }
 
     }
-    private void moveItems(int[] ballpos, int[][] bat, float[] ballv) {
+    private void moveItems(float[] ballpos, int[][] bat, float[] ballv) {
         setBallPosition(ballpos);
 //        setBallVelocity(ballv);
         for(int i=0;i<4;i++){
             bats[i].setPosition(bat[i][0],bat[i][1]);
         }
     }
-    private void moveItems(int[] ballpos, int[][] bat) {
+    private void moveItems(float[] ballpos, int[][] bat) {
         setBallPosition(ballpos);
         for(int i=0;i<4;i++){
             bats[i].setPosition(bat[i][0],bat[i][1]);
@@ -349,7 +389,7 @@ public class MultiplayerBoard extends JPanel  {
 
     }
 
-    public void Update(boolean collision,int[] ballPos,int[][] bat, float[] ballv){
+    public void Update(boolean collision,float[] ballPos,int[][] bat, float[] ballv){
         int count=0;
         for (boolean x:inGame)
             if(x)
@@ -366,7 +406,7 @@ public class MultiplayerBoard extends JPanel  {
         }
         repaint();
     }
-    public void Update(boolean collision,int[] ballPos,int[][] bat){
+    public void Update(boolean collision,float[] ballPos,int[][] bat){
         int count=0;
         for (boolean x:inGame)
             if(x)
@@ -387,8 +427,8 @@ public class MultiplayerBoard extends JPanel  {
         return tmp;
     }
 
-    public int[] getBallPosition(){
-        int[] tmp = {(int)ball.x,(int)ball.y};
+    public float[] getBallPosition(){
+        float[] tmp = {ball.x,ball.y};
         return tmp;
     }
     public float[] getBallVelocity(){
@@ -399,7 +439,7 @@ public class MultiplayerBoard extends JPanel  {
     public void setBallVelocity(float[] vel){
         ball.setVelocity(vel[0],vel[1]);
     }
-    public void setBallPosition(int[] pos){
+    public void setBallPosition(float[] pos){
         ball.setPosition(pos[0],pos[1]);
     }
 }

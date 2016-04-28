@@ -29,7 +29,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
     Timer timer;
     private final int DELAY = 18;
     int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
-    int[] ball = {200,200};
+    float[] ball = {200,200};
     float[] ballv = {2,-3};
 
     /**
@@ -202,7 +202,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         board = new MultiplayerBoard(playerNumber);
         JFrame frame = new JFrame("Game");
         frame.setContentPane(board);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400,400);
         frame.setResizable(false);
         frame.pack();
@@ -214,7 +214,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 int[] pos = new int[2];
                 pos = board.getPlayerBatPosition(playerNumber);
                 ball = board.getBallPosition();
-                ballv = board.getBallVelocity();
+ //               ballv = board.getBallVelocity();
                 bats[playerNumber][0]=pos[0];
                 bats[playerNumber][1]=pos[1];
                 tellEveryone("MoveB" +" "+pos[0]+" "+pos[1]+" "+playerNumber+" "+ball[0]+" "+ball[1]);
@@ -323,7 +323,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         board = new MultiplayerBoard(playerNumber);
                         JFrame frame = new JFrame("Game");
                         frame.setContentPane(board);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         frame.setSize(400,400);
                         frame.setResizable(false);
                         frame.pack();
@@ -360,7 +360,6 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 case 0: {
                                     bats[0][0] = Integer.parseInt(ip_array[1]);
                                     bats[0][1] = Integer.parseInt(ip_array[2]);
-                                    System.out.println(message);
                                     break;
                                 }
                                 case 1: {
@@ -386,30 +385,30 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                             case 0: {
                                 bats[0][0] = Integer.parseInt(ip_array[1]);
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
-                                ball[0]=Integer.parseInt(ip_array[4]);
-                                ball[1]=Integer.parseInt(ip_array[5]);
+                                ball[0]=Float.parseFloat(ip_array[4]);
+                                ball[1]=Float.parseFloat(ip_array[5]);
                                 System.out.println(message);
                                 break;
                             }
                             case 1: {
                                 bats[1][0] = Integer.parseInt(ip_array[1]);
                                 bats[1][1] = Integer.parseInt(ip_array[2]);
-                                ball[0]=Integer.parseInt(ip_array[4]);
-                                ball[1]=Integer.parseInt(ip_array[5]);
+                                ball[0]=Float.parseFloat(ip_array[4]);
+                                ball[1]=Float.parseFloat(ip_array[5]);
                                 break;
                             }
                             case 2: {
                                 bats[2][0] = Integer.parseInt(ip_array[1]);
                                 bats[2][1] = Integer.parseInt(ip_array[2]);
-                                ball[0]=Integer.parseInt(ip_array[4]);
-                                ball[1]=Integer.parseInt(ip_array[5]);
+                                ball[0]=Float.parseFloat(ip_array[4]);
+                                ball[1]=Float.parseFloat(ip_array[5]);
                                 break;
                             }
                             case 3: {
                                 bats[3][0] = Integer.parseInt(ip_array[1]);
                                 bats[3][1] = Integer.parseInt(ip_array[2]);
-                                ball[0]=Integer.parseInt(ip_array[4]);
-                                ball[1]=Integer.parseInt(ip_array[5]);
+                                ball[0]=Float.parseFloat(ip_array[4]);
+                                ball[1]=Float.parseFloat(ip_array[5]);
                                 break;
                             }
                         }
