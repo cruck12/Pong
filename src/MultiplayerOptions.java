@@ -19,18 +19,18 @@ import javax.swing.Timer;
  */
 public class MultiplayerOptions extends javax.swing.JFrame {
 
-    ArrayList clientOutputStreams;
-    ArrayList users;
-    String own_ip;
-    int connectToEveryone = 0;
-    String host_ip;
-    int playerNumber;
-    MultiplayerBoard board;
-    Timer timer;
+    ArrayList clientOutputStreams; // stores all the output streams of the other players
+    ArrayList users; // stores the ip of each user
+    String own_ip; // stores your own ip
+    int connectToEveryone = 0; //differentiates host to other users
+    String host_ip; // stores the host ip
+    int playerNumber; // the position of the player on the board
+    MultiplayerBoard board; // board that is initialized once the game starts
+    Timer timer; // fires at every time specified by the delay
     private final int DELAY = 18;
     long lastLoopTime;
-    int[][] bats = {{180,385},{385,180},{180,5},{5,180}};
-    float[] ball = {200,200};
+    int[][] bats = {{180,385},{385,180},{180,5},{5,180}}; // positions for the bats
+    float[] ball = {200,200}; //positions for the ball
     float[] ballv = {2,-3};
 
     /**
@@ -139,6 +139,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    // decides what happens when the join action is pressed
+    // the join lobby button just connnects to the server of the host ip and starts the server of the host
     private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         try {
@@ -167,6 +169,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         }
     }
 
+    // create lobby is pressed by the host and it starts his own server and he is ready to receive connections
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         try {
@@ -191,21 +194,25 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
+    // creates and connects sockets to the ip's in the users array list
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         handleConnections();
     }
 
+    // this button starts the game and sends the start command to all the users
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         tellEveryone("START");
         lastLoopTime = System.nanoTime();
         System.out.println(playerNumber);
         board = new MultiplayerBoard(playerNumber);
+        // sets the AI for the non user bats
         for(int i = users.size();i<4;i++)
         {
             board.bats[i].AI = true;
         }
+        // renders the game
         JFrame frame = new JFrame("Game");
         frame.setContentPane(board);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,6 +231,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 long delta = System.nanoTime() - lastLoopTime;
                 ball = board.getBallPosition();
                 bats[playerNumber][0]=pos[0];
+                // only the host can send the position of ball and the lives
                 bats[playerNumber][1]=pos[1];if(delta > 500000000) {
                     tellEveryone("MoveB" + " " + pos[0] + " " + pos[1] + " " + playerNumber + " " + ball[0] + " " + ball[1]
                             +" "+lives[0]+" "+lives[1]+" "+lives[2]+" "+lives[3]);
@@ -238,7 +246,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
     }
 
-
+    // this class handles all the server starts
     public class ServerStart implements Runnable {
 
         @Override
@@ -248,6 +256,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             int player = 1 ;
             String sent_ip;
             try {
+                // the next line creates the server for the user
                 ServerSocket serverSock = new ServerSocket(2222);
                 msg_area.append("Server is at IP = "
                         + serverSock.getInetAddress().getLocalHost().getHostAddress()
@@ -259,12 +268,14 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 }
 
                 while (true) {
+                    // clientSock is the socket that stores the information for the connections received
                     Socket clientSock = serverSock.accept();
                     PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
                     clientOutputStreams.add(writer);
                     if (!users.contains(clientSock.getInetAddress().getHostAddress())) {
                         users.add(clientSock.getInetAddress().getHostAddress());
                     }
+                    // we get the connections and the players are assigned the values in increasing order starting from 0
                     msg_area.append("Got a connection from "
                             + clientSock.getInetAddress().getHostAddress() + "\n");
                     if(own_ip.equals(host_ip)) {
@@ -273,6 +284,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 + " " + player + " " + "player");
                         player = player + 1;
                     }
+                    // the user sends everyone the ip's he has received
                     if (own_ip.equals(host_ip)) {
                         Iterator it = users.iterator();
                         while (it.hasNext()) {
@@ -292,6 +304,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         }
     }
 
+    // this is the class that handles all the sockets to all the server sockets of other users
     public class ClientHandler implements Runnable {
 
         BufferedReader reader;
@@ -310,12 +323,14 @@ public class MultiplayerOptions extends javax.swing.JFrame {
 
         }
 
+        // this function receives the messages and interprets them according to the specified first word
         @Override
         public void run() {
             String message;
             try {
                 while ((message = reader.readLine()) != null) {
                     String[] ip_array = message.split("\\s+");
+                    // ip is received and the users adds it to his users ArrayList
                     if (ip_array[0].equals("IP:")) {
 
                         if (!users.contains(ip_array[1])) {
@@ -323,6 +338,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                             users.add(ip_array[1]);
                         }
                     }
+                    // receives which player bat he has been assigned
                     else if (ip_array[0].equals("Player"))
                     {
                         if(own_ip.equals(ip_array[2]))
@@ -330,6 +346,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                             playerNumber = Integer.parseInt(ip_array[1]);
                         }
                     }
+                    // receives the command to start and then acts upon it by rendering the game
                     else if (ip_array[0].equals("START"))
                     {
                         board = new MultiplayerBoard(playerNumber);
@@ -381,6 +398,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         timer.start();
                     }
 
+                    // command to render the board with the given positions
                     else if(ip_array[0].equals("Move"))
                     {
                             switch (Integer.parseInt(ip_array[3])) {
@@ -406,6 +424,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 }
                             }
                         }
+                    // command of the positions and lives and positions of the ball
                     else if(ip_array[0].equals("MoveB"))
                     {
                         switch (Integer.parseInt(ip_array[3])) {
@@ -475,7 +494,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             }
         }
     }
-
+    // connects to the ips in the users ArrayList
     public void handleConnections() {
         Iterator it = users.iterator();
 
@@ -497,6 +516,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         }
     }
 
+    // this class handles the server Sockets
     public class ServerHandler implements Runnable {
 
         BufferedReader reader;
@@ -525,7 +545,10 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 while ((message = reader.readLine()) != null) {
                     System.out.println("Message is" + message);
                 }
-            } catch (Exception ex) {
+            }
+            // major exception handling whenever one user leaves we know the ip and add the AI inplace
+            // also handles the cases if the host disconnects
+            catch (Exception ex) {
                 msg_area.append("Lost a connection. \n");
                 msg_area.append("IP that was lost is " + ip + "\n");
                 int index = users.indexOf(ip);
@@ -549,6 +572,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         }
     }
 
+    // sends the given messages to everyone by the output streams ArrayList
     public void tellEveryone(String message) {
         Iterator it = clientOutputStreams.iterator();
 
