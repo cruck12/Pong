@@ -360,6 +360,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 case 0: {
                                     bats[0][0] = Integer.parseInt(ip_array[1]);
                                     bats[0][1] = Integer.parseInt(ip_array[2]);
+                                    System.out.println(message);
                                     break;
                                 }
                                 case 1: {
@@ -387,6 +388,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                                 bats[0][1] = Integer.parseInt(ip_array[2]);
                                 ball[0]=Integer.parseInt(ip_array[4]);
                                 ball[1]=Integer.parseInt(ip_array[5]);
+                                System.out.println(message);
                                 break;
                             }
                             case 1: {
@@ -417,7 +419,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                         msg_area.append("Received: " + message + "\n");
                     }
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 msg_area.append("Lost a connection. \n");
                 ex.printStackTrace();
                 clientOutputStreams.remove(client);
@@ -451,6 +453,7 @@ public class MultiplayerOptions extends javax.swing.JFrame {
         BufferedReader reader;
         Socket sock;
         PrintWriter client;
+        String ip;
 
         public ServerHandler(Socket clientSocket, PrintWriter user) {
             client = user;
@@ -458,6 +461,8 @@ public class MultiplayerOptions extends javax.swing.JFrame {
                 sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(isReader);
+                ip = sock.getInetAddress().getHostAddress();
+                System.out.println("ip received" + ip);
             } catch (Exception ex) {
                 msg_area.append("Unexpected error... \n");
             }
@@ -469,11 +474,11 @@ public class MultiplayerOptions extends javax.swing.JFrame {
             String message;
             try {
                 while ((message = reader.readLine()) != null) {
-
+                    System.out.println("Message is" + message);
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 msg_area.append("Lost a connection. \n");
-                ex.printStackTrace();
+                msg_area.append("IP that was lost is " + ip);
                 clientOutputStreams.remove(client);
             }
         }
